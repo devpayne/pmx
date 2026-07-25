@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMx — Pick a Seat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #1a1a1a;
+  --white: #ffffff;
+  --blue: #4B52E8;
+  --blue-d: #3840cc;
+  --soft: #f4f4f8;
+  --muted: #5f5f6e;
+  --rule: rgba(0,0,0,0.08);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--soft);
+  color: var(--black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 3rem;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
+}
+.nav-logo-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--black); letter-spacing: -0.01em;
+}
+.nav-logo-text em { font-style: normal; color: var(--blue); }
+.nav-links {
+  display: flex; align-items: center; gap: 2rem; list-style: none;
+}
+.nav-link {
+  font-size: 13px; color: var(--muted);
+  text-decoration: none; transition: color 0.15s;
+}
+.nav-link:hover { color: var(--black); }
+.nav-cta {
+  font-size: 13px; font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  background: var(--black); color: white !important;
+  border-radius: 100px; text-decoration: none;
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--blue) !important; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--black);
+  padding: 6rem 3rem 5rem;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 1.75rem;
+}
+.hero h1 {
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 800; line-height: 0.97;
+  letter-spacing: -0.04em; color: white;
+  max-width: 14ch; margin: 0 auto 1.5rem;
+}
+.hero h1 em { font-style: normal; color: var(--blue); }
+.hero-sub {
+  font-size: 18px; font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  max-width: 50ch; margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+.hw {
+  display: inline-block;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-on-scroll {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-on-scroll.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ── SEATS SECTION ── */
+.seats-section {
+  padding: 5rem 3rem 4rem;
+  max-width: 1080px; margin: 0 auto;
+}
+.section-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.5rem;
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.05; margin-bottom: 0.6rem;
+}
+.section-title em { font-style: normal; color: var(--blue); }
+.section-sub {
+  font-size: 15px; color: var(--muted);
+  margin-bottom: 2.5rem; max-width: 52ch;
+}
+
+/* ── SEAT GRID ── */
+.seats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.seat {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem;
+  cursor: pointer;
+  display: flex; flex-direction: column; gap: 6px;
+  transition: transform 0.12s, border-color 0.15s, box-shadow 0.15s;
+  text-align: left;
+}
+.seat:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue);
+  box-shadow: 0 8px 28px rgba(75,82,232,0.1);
+}
+.seat-icon { color: var(--black); margin-bottom: 6px; height: 24px; }
+.seat-icon svg { width: 24px; height: 24px; display: block; }
+.seat-role { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+.seat-teaser { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.seat-go {
+  margin-top: 8px; font-size: 12px; font-weight: 600;
+  color: var(--blue);
+}
+
+/* ── CLOSING ── */
+.closing-wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding: 0 3rem 4rem;
+}
+.closing {
+  background: var(--black); border-radius: 4px;
+  padding: 3rem; text-align: center;
+}
+.closing h3 {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800; letter-spacing: -0.03em;
+  color: white; margin-bottom: 0.6rem;
+}
+.closing p { color: rgba(255,255,255,0.4); font-size: 15px; margin-bottom: 1.5rem; }
+.btn-primary {
+  display: inline-block;
+  background: var(--blue); color: white;
+  font-size: 15px; font-weight: 600;
+  padding: 0.85rem 2rem; border-radius: 100px;
+  text-decoration: none; transition: opacity 0.15s;
+}
+.btn-primary:hover { opacity: 0.88; }
+
+footer {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.35);
+  padding: 1.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px;
+}
+.footer-logo {
+  font-size: 16px; font-weight: 800;
+  letter-spacing: -0.02em; color: white;
+}
+.footer-logo em { font-style: normal; color: var(--blue); }
+
+/* ── SIMULATION OVERLAY ── */
+.sim {
+  position: fixed; inset: 0;
+  background: var(--black); color: white;
+  z-index: 1000; display: none; overflow-y: auto;
+}
+.sim.show { display: block; }
+.sim-close {
+  position: fixed; top: 18px; right: 22px;
+  background: transparent; border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+  width: 38px; height: 38px; border-radius: 50%;
+  font-size: 20px; line-height: 1; cursor: pointer; z-index: 1001;
+  transition: border-color 0.15s, color 0.15s;
+}
+.sim-close:hover { border-color: rgba(255,255,255,0.4); color: white; }
+.sim-inner {
+  max-width: 640px; margin: 0 auto;
+  min-height: 100vh; display: flex;
+  flex-direction: column; justify-content: center;
+  padding: 78px 24px;
+}
+.phase-chip {
+  align-self: flex-start;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue);
+  border: 1px solid rgba(75,82,232,0.3);
+  background: rgba(75,82,232,0.08);
+  padding: 5px 12px; border-radius: 999px; margin-bottom: 20px;
+}
+.sim-h {
+  font-size: 34px; font-weight: 800;
+  letter-spacing: -0.03em; margin: 0 0 12px;
+}
+.sim-h.big { font-size: 46px; }
+.sim-sub {
+  font-size: 17px; color: rgba(255,255,255,0.5);
+  margin: 0 0 26px; max-width: 50ch; line-height: 1.6;
+}
+.cta {
+  display: inline-block;
+  background: var(--blue); color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 15px;
+  padding: 14px 26px; border-radius: 100px;
+  cursor: pointer; border: none;
+  text-decoration: none; transition: opacity 0.15s;
+}
+.cta:hover { opacity: 0.88; }
+
+.feed {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 20px; min-height: 360px;
+}
+.fitem {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 14px 16px;
+  opacity: 0; transform: translateY(-8px);
+  transition: opacity 0.45s, transform 0.45s;
+}
+.fitem.in { opacity: 1; transform: none; }
+.fitem.past { opacity: 0.35; }
+.fmark { position: relative; flex: 0 0 22px; height: 22px; }
+.fmark .spin {
+  position: absolute; inset: 0;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+.fmark .chk {
+  position: absolute; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  color: var(--blue); font-weight: 800; font-size: 14px;
+}
+.fmark.done .spin { display: none; }
+.fmark.done .chk { display: flex; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.ftext strong { display: block; font-size: 14px; font-weight: 600; }
+.ftext span { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+.pbar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; }
+.pfill { height: 100%; width: 0; background: var(--blue); border-radius: 6px; transition: width 0.5s ease; }
+
+.skip {
+  align-self: flex-start; background: none; border: none;
+  color: rgba(255,255,255,0.3); font-size: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer; margin-top: 14px; padding: 4px 0;
+}
+.skip:hover { color: rgba(255,255,255,0.6); }
+
+.reveal { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.reveal .phase-chip { align-self: center; }
+.reveal-h {
+  font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.15; margin: 0 0 10px; max-width: 22ch;
+}
+.reveal-sub { font-size: 17px; color: rgba(255,255,255,0.5); margin: 0 0 26px; max-width: 44ch; }
+
+/* Deliverable deck */
+.deck {
+  position: relative; background: white; color: var(--black);
+  border-radius: 8px; overflow: hidden; max-width: 520px; width: 100%;
+  margin: 0 auto 24px; text-align: left;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  animation: popIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+.deck::after {
+  content: ""; position: absolute; top: 0; left: -70%; width: 45%; height: 100%;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+  transform: skewX(-20deg);
+  animation: shine 1s ease 0.3s 1 both;
+}
+@keyframes shine { from { left: -70%; } to { left: 130%; } }
+.deck-top {
+  background: var(--black); color: white;
+  padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;
+}
+.deck-logo {
+  font-weight: 800; font-size: 14px; letter-spacing: -0.02em;
+  background: white; color: var(--black);
+  padding: 2px 8px; border-radius: 4px;
+}
+.deck-kind { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+.deck-cover { padding: 20px 20px 8px; }
+.deck-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; }
+.deck-title { font-size: 24px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 4px; }
+.deck-sub { font-size: 13px; color: var(--muted); margin: 0; }
+.deck-blur { position: relative; padding: 14px 20px 22px; }
+.deck-blur .blurred { filter: blur(4px); opacity: 0.45; pointer-events: none; user-select: none; }
+.deck-lock {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.deck-lock span {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--black); color: white; font-size: 12px; font-weight: 700;
+  padding: 8px 14px; border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* Deliverable body primitives */
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.pill-d {
+  background: rgba(75,82,232,0.08); color: var(--blue);
+  border: 1px solid rgba(75,82,232,0.2);
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 999px;
+}
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+.cell {
+  background: var(--soft); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 9px 10px;
+}
+.cell .ct { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 2px; }
+.cell .cv { font-size: 12px; color: var(--black); font-weight: 500; }
+.kv { display: flex; gap: 10px; font-size: 12px; padding: 6px 0; border-top: 1px dashed rgba(0,0,0,0.08); }
+.kv:first-of-type { border-top: none; }
+.kv .k { font-weight: 700; color: var(--black); flex: 0 0 120px; }
+.kv .v { color: var(--muted); }
+.bars { margin-top: 2px; }
+.barrow { display: flex; align-items: center; gap: 10px; margin: 6px 0; font-size: 12px; }
+.barrow .bn { flex: 0 0 130px; font-weight: 600; color: var(--black); }
+.track { flex: 1; height: 7px; background: rgba(0,0,0,0.07); border-radius: 6px; overflow: hidden; }
+.fill { height: 100%; background: var(--blue); border-radius: 6px; }
+
+/* Agent reveal */
+.agent {
+  background: white; color: var(--black); border-radius: 8px;
+  max-width: 540px; width: 100%; overflow: hidden; text-align: left;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5); margin: 0 auto 24px;
+  animation: popIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+.agent-top {
+  background: var(--black); color: white;
+  padding: 11px 15px; display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 13px;
+}
+.adot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+.astatus { margin-left: auto; font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.05em; }
+.agent-body { padding: 14px; }
+.agent-selects { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; font-size: 12px; color: var(--muted); }
+.agent-selects label { display: inline-flex; align-items: center; gap: 5px; }
+.agent-selects select {
+  border: 1px solid var(--rule); border-radius: 6px;
+  padding: 5px 8px; font-size: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600;
+  color: var(--black); background: white; cursor: pointer;
+}
+.agent-input { display: flex; gap: 8px; }
+.agent-input input {
+  flex: 1; border: 1px solid var(--rule); border-radius: 7px;
+  padding: 9px 11px; font-size: 13px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.agent-input input:focus { outline: 2px solid var(--blue); border-color: var(--blue); }
+.agent-input button {
+  background: var(--black); color: white; border: none;
+  border-radius: 7px; padding: 0 16px; font-weight: 700;
+  font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer;
+}
+.agent-ctx {
+  font-size: 11px; font-weight: 700; color: var(--blue);
+  background: rgba(75,82,232,0.08); border: 1px solid rgba(75,82,232,0.2);
+  display: inline-block; padding: 3px 10px; border-radius: 999px; margin: 10px 0 9px;
+}
+.agent-answer {
+  background: var(--soft); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 12px 14px; min-height: 90px;
+}
+.agent-answer .aq { font-weight: 700; font-size: 12px; color: var(--black); margin-bottom: 5px; }
+.agent-answer .aa { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* IC lock svg inline */
+.lock-svg { width: 13px; height: 13px; }
+
+@media (max-width: 720px) {
+  nav { padding: 1rem 1.25rem; }
+  .hero { padding: 4.5rem 1.5rem 4rem; }
+  .seats-section { padding: 3.5rem 1.5rem 2.5rem; }
+  .closing-wrap { padding: 0 1.5rem 3rem; }
+  footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  .sim-h.big { font-size: 34px; }
+  .grid2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="flex-shrink:0;">
+      <defs>
+        <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1a1a1a"/>
+          <stop offset="100%" stop-color="#4B52E8"/>
+        </linearGradient>
+      </defs>
+      <line x1="28" y1="172" x2="172" y2="28" stroke="#4B52E8" stroke-width="42" stroke-linecap="round"/>
+      <line x1="28" y1="28" x2="172" y2="172" stroke="#1a1a1a" stroke-width="42" stroke-linecap="round"/>
+      <polygon points="62,8 138,8 100,52" fill="url(#wg)"/>
+    </svg>
+    <span class="nav-logo-text">PM<em>x</em></span>
+  </a>
+  <ul class="nav-links" style="list-style:none;">
+    <li><a class="nav-link" href="index.html">Home</a></li>
+    <li><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Product Marketing Multiplier</div>
+  <h1>
+    <span class="hw" style="animation-delay:0.1s">See how we'd</span><br>
+    <em>
+      <span class="hw" style="animation-delay:0.25s">work with</span>
+      <span class="hw" style="animation-delay:0.38s">your team.</span>
+    </em>
+  </h1>
+  <p class="hero-sub" style="opacity:0;animation:fadeUp 0.6s ease 0.55s forwards;">An embedded product marketing team, plugged into every team that touches your story. Pick a seat and watch a full engagement run.</p>
+</div>
+
+<div class="seats-section">
+  <div class="section-label reveal-on-scroll">Pick a seat</div>
+  <h2 class="section-title reveal-on-scroll">Where would we <em>plug in?</em></h2>
+  <p class="section-sub reveal-on-scroll">Each seat runs a live simulation — the problem, the work we do, and the deliverable that lands on their desk.</p>
+  <div class="seats reveal-on-scroll" id="seats"></div>
+</div>
+
+<div class="closing-wrap">
+  <div class="closing reveal-on-scroll">
+    <h3>One team. One story.</h3>
+    <p>Strategy and execution, telling the same story across your whole org.</p>
+    <a class="btn-primary" href="mailto:devin@productmarketing.team?subject=Let%27s%20talk%20-%20PMx">Get in touch</a>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">PM<em>x</em></span>
+  <p>© 2026 PMx · <a href="https://productmarketing.team" style="color:#4B52E8;text-decoration:none;">productmarketing.team</a></p>
+</footer>
+
+<div class="sim" id="sim">
+  <button class="sim-close" id="simClose" aria-label="Close">&times;</button>
+  <div class="sim-inner" id="simInner"></div>
+</div>
+
+<script>
+/* ---------- ICONS ---------- */
+const IC = {
+  target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>',
+  box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/><path d="M12 12v9"/></svg>',
+  trend:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>',
+  pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg>',
+  bars:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M7 20v-7"/><path d="M12 20V6"/><path d="M17 20v-4"/></svg>',
+  flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-1.6 4L16 12H5"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
+};
+
+/* ---------- SEATS ---------- */
+const SEATS = [
+  { id:"cmo",     role:"Head of Marketing",  teaser:"Own one story across the whole org.",   icon:IC.target },
+  { id:"pmm",     role:"Product Marketing",  teaser:"Turn a release into a revenue event.",  icon:IC.box },
+  { id:"demand",  role:"Demand Generation",  teaser:"Pipeline built on real positioning.",   icon:IC.trend },
+  { id:"content", role:"Content and Brand",  teaser:"Authority that compounds.",             icon:IC.pen },
+  { id:"ae",      role:"Sales Enablement",   teaser:"An agent your reps self-serve from.",   icon:IC.chat },
+  { id:"cro",     role:"Sales Leadership",   teaser:"One message that closes.",              icon:IC.bars },
+  { id:"founder", role:"Founder and CEO",    teaser:"A story that scales past you.",         icon:IC.flag }
+];
+
+/* ---------- SIMULATION CONFIG ---------- */
+const SIM_CONFIG = {
+  cmo:{
+    role:"Head of Marketing",
+    pain:"Your message is drifting. Every team tells a slightly different story, and you own the number at quarter end.",
+    discovery:{ heading:"We do the listening.", sub:"Before a word of messaging, we go deep on your buyers, revenue, and market.",
+      items:[
+        {t:"Customer calls", s:"The language buyers actually use"},
+        {t:"Win/loss interviews", s:"Why deals really close, or do not"},
+        {t:"Market research", s:"Where the category is moving"},
+        {t:"ARR deep dives", s:"What your revenue rewards"},
+        {t:"Product deep dives", s:"What you are genuinely best at"},
+        {t:"Upsell and expansion trends", s:"Where accounts grow"},
+        {t:"Competitive teardowns", s:"The gaps left open"},
+        {t:"Survey data", s:"The signal at scale"}
+      ]},
+    build:{ heading:"We build the PMx Framework.", sub:"Every input becomes one structured, defensible positioning system.",
+      items:[
+        {t:"Competitive alternatives", s:"What buyers would do instead"},
+        {t:"Unique value", s:"What only you deliver"},
+        {t:"Proof", s:"The evidence behind the claim"},
+        {t:"Best-fit customers", s:"Who cares most, and why"},
+        {t:"Market category", s:"The frame that makes value obvious"},
+        {t:"Relevant trends", s:"Why it matters now"},
+        {t:"Source of truth assembled", s:"One framework, ready to socialize"}
+      ]},
+    reveal:{ type:"deck", h:"The centralized, socialized positioning framework you've been dreaming of.", sub:"Now all of your teams have it.",
+      deck:{ eyebrow:"Positioning", title:"Positioning Framework", sub:"The single source of truth every team runs on",
+        body:{ kind:"platform", category:"Embedded product marketing for scaling B2B teams",
+          pillars:["Strategy plus execution","Built on real research","One message, every channel"],
+          cells:[["Competitive alternatives","Agency, freelancer, or in-house"],["Unique value","Discovery, messaging, activation as one team"],["Best-fit customer","Series A-C B2B, founder-led GTM"],["Proof","Win/loss lift, faster launches"]] } } }
+  },
+
+  pmm:{
+    role:"Product Marketing",
+    pain:"Launches slip, live in one person, and land as announcements nobody reads.",
+    discovery:{ heading:"We learn the product cold.", sub:"From the people who build it to the people who buy it.",
+      items:[
+        {t:"Interviewing product", s:"What the release truly changes"},
+        {t:"Product documentation deep dive", s:"Every capability, mapped"},
+        {t:"Customer interviews", s:"The problems buyers feel"},
+        {t:"Engineering check-ins", s:"What is real, and what is next"},
+        {t:"UX interviews", s:"How it actually feels to use"},
+        {t:"Market research", s:"Where this lands in the category"}
+      ]},
+    build:{ heading:"We build the launch playbook.", sub:"One GTM plan that gets every team moving in sync.",
+      items:[
+        {t:"GTM plan", s:"The end-to-end launch motion"},
+        {t:"Messaging house", s:"One core claim, proof beneath it"},
+        {t:"Positioning and framing", s:"How this launch is understood"},
+        {t:"Bill of materials", s:"Every asset, owned and dated"},
+        {t:"Press collaboration", s:"The story, placed"},
+        {t:"Thought leadership", s:"Authority around the launch"},
+        {t:"Customer comms", s:"The right message to the base"},
+        {t:"Sales enablement", s:"Reps ready on day one"},
+        {t:"Internal comms and celebration", s:"The whole company aligned"},
+        {t:"Launch event", s:"A moment, not a memo"}
+      ]},
+    reveal:{ type:"deck", h:"The launch playbook that turns a release into a revenue event.", sub:"Every team knows their part on day one.",
+      deck:{ eyebrow:"Go-to-market", title:"Launch Playbook", sub:"One GTM plan, every team in sync",
+        body:{ kind:"kvpill", pills:["GTM plan","Messaging house"],
+          rows:[["Positioning","How this launch is understood"],["Messaging house","One core claim, proof beneath"],["Bill of materials","Every asset, owned and dated"],["Enablement","Reps ready on day one"],["Press and comms","Internal and external, aligned"],["Launch event","A moment, not a memo"]] } } }
+  },
+
+  demand:{
+    role:"Demand Generation",
+    pain:"You drive traffic all day, but soft messaging turns it into expensive bounces.",
+    discovery:{ heading:"We find where demand really lives.", sub:"We audit the funnel, the channels, and the language that moves buyers.",
+      items:[
+        {t:"Positioning review", s:"The message every campaign runs on"},
+        {t:"ICP and segment analysis", s:"Who is actually worth reaching"},
+        {t:"Channel performance audit", s:"What is working, what is waste"},
+        {t:"Funnel and conversion analysis", s:"Where buyers drop"},
+        {t:"Intent and keyword research", s:"What in-market buyers search"},
+        {t:"Competitor campaign teardowns", s:"The angles they own"},
+        {t:"Customer language mining", s:"The words that convert"},
+        {t:"Offer and hook testing review", s:"What earns the click"}
+      ]},
+    build:{ heading:"We build the campaign brief.", sub:"One plan the whole funnel runs on.",
+      items:[
+        {t:"Audience definition", s:"The exact buyer and trigger"},
+        {t:"Core angle", s:"The one idea that lands"},
+        {t:"Offer and hook", s:"The reason to act now"},
+        {t:"Channel plan", s:"Where to show up, and how"},
+        {t:"Message and copy", s:"On-position, end to end"},
+        {t:"Email sequence", s:"Right message, right moment"},
+        {t:"Landing page plan", s:"Built to convert, not just click"},
+        {t:"Targets and measurement", s:"Pipeline, not vanity metrics"}
+      ]},
+    reveal:{ type:"deck", h:"The campaign brief your whole funnel runs on.", sub:"Built on positioning, not guesswork.",
+      deck:{ eyebrow:"Demand", title:"Campaign Brief", sub:"Built on positioning, not guesswork",
+        body:{ kind:"kvpill", pills:["Built on the PMx Framework"],
+          rows:[["Audience","Marketing leaders feeling message drift"],["Core angle","Your teams tell five different stories"],["Offer","Free positioning teardown"],["Channels","Email, retargeting, LinkedIn, webinar"],["Sequence","3-touch nurture into demo"],["Target","Sourced pipeline, not clicks"]] } } }
+  },
+
+  content:{
+    role:"Content and Brand",
+    pain:"You publish to stay busy, and none of it compounds into a position.",
+    discovery:{ heading:"We find the argument worth owning.", sub:"We map your audience, your gaps, and the angles no one else is taking.",
+      items:[
+        {t:"Positioning review", s:"The one argument to build on"},
+        {t:"Persona research", s:"Who we are really writing for"},
+        {t:"Content audit", s:"What compounds, what to cut"},
+        {t:"SEO and topic research", s:"Where demand and search meet"},
+        {t:"Competitor content teardowns", s:"The angles left open"},
+        {t:"Social listening", s:"What your audience reacts to"},
+        {t:"Sales question mining", s:"What buyers keep asking"},
+        {t:"Thought-leadership angles", s:"The take that earns authority"}
+      ]},
+    build:{ heading:"We build the content calendar.", sub:"Every piece laddering to one position.",
+      items:[
+        {t:"Content pillars", s:"The themes you will own"},
+        {t:"Editorial themes", s:"Each month, one argument"},
+        {t:"Channel mix", s:"Where each piece performs"},
+        {t:"Cadence and calendar", s:"A realistic, shippable rhythm"},
+        {t:"Thought-leadership series", s:"Authority, built on purpose"},
+        {t:"Repurposing plan", s:"One idea, many formats"},
+        {t:"Distribution plan", s:"Made to travel, not just post"},
+        {t:"Measurement", s:"What actually compounds"}
+      ]},
+    reveal:{ type:"deck", h:"The content calendar that compounds.", sub:"Every piece laddering to one position.",
+      deck:{ eyebrow:"Content", title:"Content Calendar", sub:"Every piece laddering to one position",
+        body:{ kind:"kvpill", pills:["Pillar: One story","Pillar: Real research","Pillar: Category authority"],
+          rows:[["Week 1","Why positioning beats volume"],["Week 2","The cost of message drift"],["Week 3","One story, every team"],["Week 4","Category teardown"]] } } }
+  },
+
+  ae:{
+    role:"Sales Enablement",
+    pain:"Your reps improvise against competitors and fumble \"we already use X\".",
+    discovery:{ heading:"We learn how deals are really won.", sub:"We pull the product, the competition, and the objections into one place.",
+      items:[
+        {t:"Product deep dives", s:"What reps need to say, and prove"},
+        {t:"Competitive teardowns", s:"Every named competitor, mapped"},
+        {t:"Win/loss analysis", s:"Why deals move, or stall"},
+        {t:"Objection mining from calls", s:"The real blockers, in buyers' words"},
+        {t:"Pricing and packaging review", s:"How to defend value"},
+        {t:"Buyer persona research", s:"Who is actually in the room"},
+        {t:"Sales call shadowing", s:"Where reps get stuck live"},
+        {t:"Message testing", s:"What lands, what falls flat"}
+      ]},
+    build:{ heading:"We build the enablement agent.", sub:"Every answer a rep needs, in the flow of the deal.",
+      items:[
+        {t:"Product intel base", s:"Answers that are always current"},
+        {t:"Competitive intel base", s:"Beat any named competitor"},
+        {t:"Objection-handling library", s:"Reframes that keep deals alive"},
+        {t:"Battlecards", s:"On demand, not in a wiki"},
+        {t:"Discovery guides", s:"The right questions, ready"},
+        {t:"Talk tracks", s:"Say it the way buyers decide"},
+        {t:"Instant-answer agent", s:"Self-serve, in seconds"},
+        {t:"Workflow integration", s:"Right where reps already work"}
+      ]},
+    reveal:{ type:"agent", h:"An always-on enablement agent your reps self-serve from.", sub:"Product and competitive intel, tuned to your role and the moment.",
+      agent:{
+        roles:["Account Executive","SDR","Sales Manager","Customer Success"],
+        acts:["prepping for a call","handling an objection","building deal strategy","responding to an RFP"],
+        defaultQ:"How does PMx compare to an agency?",
+        agencyAnswer:"It doesn't compare 1:1. An agency hands you a deck and walks away. PMx is your embedded team: strategy and execution together, from discovery to messaging to activation. Demand gen and product marketing, not one or the other. One aligned story across every channel, for less than the cost of a single PMM hire.",
+        fallback:"Short version: lead with the buyer outcome, back it with proof, and pull the full detail from the product and competitive intel base. Ask a sharper question and I will get specific."
+      } }
+  },
+
+  cro:{
+    role:"Sales Leadership",
+    pain:"You cannot see why deals really close or die, and sales and marketing tell two different stories.",
+    discovery:{ heading:"We get the honest read.", sub:"We go into the pipeline, the calls, and the data to find the truth.",
+      items:[
+        {t:"Win/loss interviews", s:"Why deals move, straight from buyers"},
+        {t:"Pipeline and stage analysis", s:"Where deals actually stall"},
+        {t:"CRM data deep dive", s:"What the numbers really say"},
+        {t:"Rep call reviews", s:"How the message is landing"},
+        {t:"Message consistency audit", s:"Sales versus marketing, side by side"},
+        {t:"Competitive loss analysis", s:"Who beats you, and how"},
+        {t:"Forecast and conversion review", s:"Where the leaks are"},
+        {t:"Buyer feedback synthesis", s:"The pattern behind the losses"}
+      ]},
+    build:{ heading:"We build the alignment system.", sub:"One message, and the enablement to run it.",
+      items:[
+        {t:"Win/loss report", s:"The honest answer, in one place"},
+        {t:"Message alignment", s:"Sales and marketing, one story"},
+        {t:"Enablement playbook", s:"Every rep sounds like your best"},
+        {t:"Battlecard rollout", s:"Ready for every competitor"},
+        {t:"Talk tracks and scripts", s:"Consistent, on-position"},
+        {t:"Onboarding and ramp plan", s:"New reps productive faster"},
+        {t:"Deal-review framework", s:"Coach to what actually wins"},
+        {t:"Reporting dashboard", s:"See what is working, live"}
+      ]},
+    reveal:{ type:"deck", h:"The honest read on why you win, and the system to win more.", sub:"Sales and marketing, finally telling one story.",
+      deck:{ eyebrow:"Revenue", title:"Revenue Alignment Report", sub:"Why you win, and how to win more",
+        body:{ kind:"barspill", bars:[["Message clarity",78],["Trusted the team",64],["Price objection",41],["Lost to do-nothing",33]],
+          pills:["Aligned message","Enablement playbook","Deal-review cadence"] } } }
+  },
+
+  founder:{
+    role:"Founder and CEO",
+    pain:"You can sell the vision in a room, but it falls apart the moment it leaves your mouth.",
+    discovery:{ heading:"We take the story out of your head.", sub:"We pressure-test the vision against the market, the buyer, and the numbers.",
+      items:[
+        {t:"Founder vision interviews", s:"The story only you can tell"},
+        {t:"Market and category research", s:"Where you can actually win"},
+        {t:"Customer interviews", s:"What buyers truly value"},
+        {t:"Investor narrative review", s:"The story capital responds to"},
+        {t:"Competitive landscape mapping", s:"Where you stand apart"},
+        {t:"Trend analysis", s:"Why now is the moment"},
+        {t:"GTM team interviews", s:"How the story holds up in the field"},
+        {t:"Traction and proof audit", s:"The evidence behind the claim"}
+      ]},
+    build:{ heading:"We build the category narrative.", sub:"One story your team and investors can carry.",
+      items:[
+        {t:"The market shift", s:"The change you are riding"},
+        {t:"The stakes", s:"Why it matters now"},
+        {t:"Old way versus new way", s:"The contrast that lands"},
+        {t:"Category definition", s:"The frame you want to own"},
+        {t:"Positioning statement", s:"The single source of truth"},
+        {t:"Narrative arc", s:"A story that carries"},
+        {t:"Investor one-liner", s:"The line that opens doors"},
+        {t:"Company story deck", s:"Ready for any room"}
+      ]},
+    reveal:{ type:"deck", h:"The story that scales past you.", sub:"One narrative your team and investors can carry.",
+      deck:{ eyebrow:"Narrative", title:"Category Narrative", sub:"The story that scales past the founder",
+        body:{ kind:"platform", category:"A repeatable narrative your whole team can carry",
+          pillars:["Name the shift","Frame the stakes","Position the answer"],
+          cells:[["The shift","GTM fragmenting into silos"],["The stakes","Every silo dilutes the story"],["The answer","One team, one story"],["For investors","Alignment, priced below one hire"]] } } }
+  }
+};
+
+/* ---------- SEAT GRID ---------- */
+const seatsEl = document.getElementById('seats');
+SEATS.forEach(s=>{
+  const b=document.createElement('button');
+  b.className='seat';
+  b.dataset.id=s.id;
+  b.innerHTML =
+    '<span class="seat-icon">'+s.icon+'</span>'+
+    '<span class="seat-role">'+s.role+'</span>'+
+    '<span class="seat-teaser">'+s.teaser+'</span>'+
+    '<span class="seat-go">Simulate the PMx experience &rarr;</span>';
+  b.addEventListener('click',()=>openSim(s.id));
+  seatsEl.appendChild(b);
+});
+
+/* ---------- SIMULATION FLOW ---------- */
+const simInner = document.getElementById('simInner');
+let activeSim = null;
+
+function openSim(id){
+  activeSim = SIM_CONFIG[id];
+  document.getElementById('sim').classList.add('show');
+  document.body.style.overflow='hidden';
+  window.scrollTo(0,0);
+  renderIntro();
+}
+function closeSim(){
+  document.getElementById('sim').classList.remove('show');
+  document.body.style.overflow='';
+  simInner.innerHTML='';
+}
+document.getElementById('simClose').addEventListener('click', closeSim);
+
+function renderIntro(){
+  const c=activeSim;
+  simInner.innerHTML =
+    '<div class="phase-chip">'+c.role+'</div>'+
+    '<h2 class="sim-h big">What\'s breaking</h2>'+
+    '<p class="sim-sub">'+c.pain+'</p>'+
+    '<button class="cta" id="simStart">Simulate the PMx experience</button>';
+  document.getElementById('simStart').addEventListener('click', ()=>{
+    runPhase(c.discovery, '01', 'Discovery', ()=> runPhase(c.build, '02', 'Build', ()=> renderReveal(c)));
+  });
+}
+
+function runPhase(phase, step, label, next){
+  simInner.innerHTML =
+    '<div class="phase-chip">'+step+' · '+label+'</div>'+
+    '<h2 class="sim-h">'+phase.heading+'</h2>'+
+    '<p class="sim-sub">'+phase.sub+'</p>'+
+    '<div class="feed" id="feed"></div>'+
+    '<div class="pbar"><div class="pfill" id="pfill"></div></div>'+
+    '<button class="skip" id="skip">Skip ahead</button>';
+  const feed=document.getElementById('feed');
+  const pfill=document.getElementById('pfill');
+  const items=phase.items;
+  let i=0, prev=null, timer=null;
+
+  function tick(){
+    if(prev){ prev.querySelector('.fmark').classList.add('done'); prev.classList.add('past'); }
+    const it=items[i];
+    const el=document.createElement('div');
+    el.className='fitem';
+    el.innerHTML='<span class="fmark"><span class="spin"></span><span class="chk">&#10003;</span></span>'+
+      '<span class="ftext"><strong>'+it.t+'</strong><span>'+it.s+'</span></span>';
+    feed.prepend(el);
+    requestAnimationFrame(()=>el.classList.add('in'));
+    prev=el; i++;
+    pfill.style.width=(i/items.length*100)+'%';
+    while(feed.children.length>5){ feed.removeChild(feed.lastChild); }
+    if(i>=items.length){
+      clearInterval(timer);
+      setTimeout(()=>{ if(prev) prev.querySelector('.fmark').classList.add('done'); next(); }, 1400);
+    }
+  }
+  tick();
+  timer=setInterval(tick, 1450);
+  document.getElementById('skip').addEventListener('click', ()=>{ clearInterval(timer); next(); });
+}
+
+/* ---------- REVEALS ---------- */
+function renderReveal(c){
+  const r=c.reveal;
+  let mid = r.type==='agent' ? agentHTML(r.agent) : deckHTML(r.deck);
+  simInner.innerHTML =
+    '<div class="reveal">'+
+      '<div class="phase-chip">Complete</div>'+
+      '<h2 class="reveal-h">'+r.h+'</h2>'+
+      '<p class="reveal-sub">'+r.sub+'</p>'+
+      mid+
+      '<a class="cta" href="mailto:devin@productmarketing.team?subject=More%20information%20-%20PMx%20'+encodeURIComponent(c.role)+'">Get more information</a>'+
+    '</div>';
+  if(r.type==='agent') wireAgent(r.agent);
+}
+
+function deckHTML(deck){
+  return '<div class="deck present">'
+    +'<div class="deck-top"><span class="deck-logo">PMx</span><span class="deck-kind">Deliverable</span></div>'
+    +'<div class="deck-cover"><div class="deck-eyebrow">'+deck.eyebrow+'</div><h3 class="deck-title">'+deck.title+'</h3><p class="deck-sub">'+deck.sub+'</p></div>'
+    +'<div class="deck-blur"><div class="blurred">'+bodyHTML(deck.body)+'</div>'
+    +'<div class="deck-lock"><span>'+IC.lock+' Full version on request</span></div></div>'
+    +'</div>';
+}
+
+function bodyHTML(d){
+  if(d.kind==='kvpill'){
+    return (d.pills?'<div class="pill-row">'+d.pills.map(p=>'<span class="pill">'+p+'</span>').join('')+'</div>':'')
+      +d.rows.map(r=>'<div class="kv"><div class="k">'+r[0]+'</div><div class="v">'+r[1]+'</div></div>').join('');
+  }
+  if(d.kind==='barspill'){
+    return '<div class="bars">'+d.bars.map(b=>'<div class="barrow"><div class="bn">'+b[0]+'</div><div class="track"><div class="fill" style="width:'+b[1]+'%"></div></div></div>').join('')+'</div>'
+      +'<div class="pill-row" style="margin-top:12px">'+d.pills.map(p=>'<span class="pill">'+p+'</span>').join('')+'</div>';
+  }
+  if(d.kind==='platform'){
+    return '<div class="cell"><div class="ct">Category</div><div class="cv">'+d.category+'</div></div>'
+      +'<div class="pill-row" style="margin-top:10px">'+d.pillars.map(p=>'<span class="pill">'+p+'</span>').join('')+'</div>'
+      +'<div class="grid2">'+d.cells.map(c=>'<div class="cell"><div class="ct">'+c[0]+'</div><div class="cv">'+c[1]+'</div></div>').join('')+'</div>';
+  }
+  return '';
+}
+
+function agentHTML(ag){
+  const roles=ag.roles.map(r=>'<option>'+r+'</option>').join('');
+  const acts=ag.acts.map(a=>'<option>'+a+'</option>').join('');
+  return '<div class="agent present">'
+    +'<div class="agent-top"><span class="adot"></span>PMx Enablement Agent<span class="astatus">online</span></div>'
+    +'<div class="agent-body">'
+    +'<div class="agent-selects"><label>I\'m a <select id="agRole">'+roles+'</select></label><label>and I\'m <select id="agAct">'+acts+'</select></label></div>'
+    +'<div class="agent-input"><input id="agentInput" value="'+ag.defaultQ+'"><button id="agentSend">Ask</button></div>'
+    +'<div class="agent-ctx" id="agentCtx">'+ag.roles[0]+' · '+ag.acts[0]+'</div>'
+    +'<div class="agent-answer" id="agentAns"><div class="aq">'+ag.defaultQ+'</div><div class="aa">'+ag.agencyAnswer+'</div></div>'
+    +'</div></div>';
+}
+function wireAgent(ag){
+  const role=document.getElementById('agRole'), act=document.getElementById('agAct'),
+        ctx=document.getElementById('agentCtx'), inp=document.getElementById('agentInput'),
+        send=document.getElementById('agentSend'), ans=document.getElementById('agentAns');
+  function updCtx(){ ctx.textContent = role.value+' · '+act.value; }
+  role.addEventListener('change', updCtx);
+  act.addEventListener('change', updCtx);
+  function ask(){
+    const v=inp.value.trim(); if(!v) return;
+    const a = /agenc/i.test(v) ? ag.agencyAnswer : ag.fallback;
+    ans.innerHTML='<div class="aq">'+esc(v)+'</div><div class="aa">'+a+'</div>';
+  }
+  send.addEventListener('click', ask);
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') ask(); });
+}
+function esc(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+</script>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal-on-scroll');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

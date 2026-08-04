@@ -413,13 +413,7 @@ h2 em { font-style: italic; color: var(--blue); }
   margin-bottom: 1.5rem;
 }
 .tier { background: #111; }
-.tier.featured {
-  background: #1a1a2e;
-  outline: 2px solid var(--blue);
-  outline-offset: -2px;
-  position: relative;
-  z-index: 1;
-}
+.tier.featured { background: #111; }
 .tier-accordion-header {
   display: none; /* hidden on desktop */
 }
@@ -447,20 +441,29 @@ h2 em { font-style: italic; color: var(--blue); }
   .tier-accordion-body { display: none; padding: 1.5rem; }
   .tier.open .tier-accordion-body { display: block; }
 }
-.tier-badge {
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); display: block; margin-bottom: 0.75rem;
+.tier-head {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.9rem; min-height: 26px;
 }
-.tier.featured .tier-badge { color: #9ba3ff; }
+.tier-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.82);
+  letter-spacing: -0.01em;
+}
+.tier-pill {
+  margin-left: auto;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: #9ba3ff;
+  background: rgba(155,163,255,0.13);
+  border: 1px solid rgba(155,163,255,0.3);
+  padding: 2px 7px; border-radius: 100px;
+  white-space: nowrap;
+}
 .tier-price {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 36px; font-weight: 400;
-  color: white; margin-bottom: 0.25rem;
-}
-.tier-name {
-  font-size: 14px; color: rgba(255,255,255,0.5);
-  margin-bottom: 1.25rem;
+  color: white; margin-bottom: 1.25rem;
 }
 .tier-divider {
   height: 1px; background: rgba(255,255,255,0.08);
@@ -475,6 +478,30 @@ h2 em { font-style: italic; color: var(--blue); }
   content: '→'; position: absolute; left: 0;
   color: rgba(255,255,255,0.25);
 }
+.tier-cadence { margin-bottom: 0.85rem; }
+.tier-cadence-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 25px; font-weight: 700; color: #fff;
+  line-height: 1.1; letter-spacing: -0.02em;
+}
+.tier-cadence-label {
+  font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px;
+}
+.tier-meter { display: flex; gap: 5px; margin-bottom: 0.55rem; }
+.tier-meter .seg {
+  height: 5px; flex: 1; border-radius: 100px;
+  background: rgba(255,255,255,0.12);
+}
+.tier-meter .seg.on { background: var(--blue); }
+.tier.featured .tier-meter .seg.on { background: #9ba3ff; }
+.tier-meter-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: rgba(255,255,255,0.42);
+  margin-bottom: 1.2rem;
+}
+.tier-item.constant { color: rgba(255,255,255,0.9); font-weight: 600; }
+.tier-item.constant::before { content: '✓'; color: var(--blue); }
+.tier.featured .tier-item.constant::before { color: #9ba3ff; }
 .price-footnote {
   font-size: 12px; color: rgba(255,255,255,0.3);
   text-align: center;
@@ -876,27 +903,32 @@ footer p { font-size: 12px; }
   <div class="section-wrap">
     <div class="pricing-inner">
       <h2 class="reveal-on-scroll">A whole team for less than<br><em>one hire.</em></h2>
-      <p class="reveal-on-scroll">A Director of PMM costs $200K in base salary alone — add benefits and you're near $300K. PMx multiplies your output at a fraction of the cost.</p>
+      <p class="reveal-on-scroll">A Director of PMM runs $200K+ in salary alone — and that's one person. Every PMx plan gives you a full team, strategy and execution together. What changes between tiers is how much of our time you get: the more we're in it with you, the more ground you cover.</p>
       <div class="tier-grid reveal-on-scroll">
         <div class="tier">
           <div class="tier-accordion-header" onclick="toggleTier(this)">
             <div class="tier-accordion-left">
               <span class="tier-accordion-price">$10K/mo</span>
-              <span class="tier-accordion-name">Get clear.</span>
+              <span class="tier-accordion-name">Clarity.</span>
             </div>
             <span class="tier-accordion-arrow">▼</span>
           </div>
           <div class="tier-accordion-body">
-            <span class="tier-badge">Foundation</span>
+            <div class="tier-head">
+              <span class="tier-title">Clarity.</span>
+            </div>
             <div class="tier-price">$10K<span style="font-size:18px;opacity:0.5;font-style:normal;">/mo</span></div>
-            <div class="tier-name">Get clear.</div>
             <div class="tier-divider"></div>
+            <div class="tier-cadence">
+              <div class="tier-cadence-value">Monthly</div>
+              <div class="tier-cadence-label">Strategy session cadence</div>
+            </div>
+            <div class="tier-meter"><span class="seg on"></span><span class="seg"></span><span class="seg"></span></div>
+            <div class="tier-meter-label">Focused engagement</div>
             <div class="tier-items">
-              <div class="tier-item">ICP definition and buyer research</div>
-              <div class="tier-item">Core positioning and messaging platform</div>
-              <div class="tier-item">Website and product copy</div>
-              <div class="tier-item">Competitive landscape audit</div>
-              <div class="tier-item">Monthly strategy session</div>
+              <div class="tier-item constant">Your full team: strategy + execution</div>
+              <div class="tier-item">One core workstream at a time</div>
+              <div class="tier-item">Positioning, messaging, and the assets to launch it</div>
             </div>
           </div>
         </div>
@@ -904,24 +936,27 @@ footer p { font-size: 12px; }
           <div class="tier-accordion-header" onclick="toggleTier(this)">
             <div class="tier-accordion-left">
               <span class="tier-accordion-price">$20K/mo</span>
-              <span class="tier-accordion-name">Get moving.</span>
+              <span class="tier-accordion-name">Momentum. <span class="tier-pill">Most popular</span></span>
             </div>
             <span class="tier-accordion-arrow">▼</span>
           </div>
           <div class="tier-accordion-body">
-            <span class="tier-badge">Most Popular</span>
+            <div class="tier-head">
+              <span class="tier-title">Momentum.</span>
+              <span class="tier-pill">Most popular</span>
+            </div>
             <div class="tier-price">$20K<span style="font-size:18px;opacity:0.7;font-style:normal;">/mo</span></div>
-            <div class="tier-name">Get moving.</div>
             <div class="tier-divider"></div>
+            <div class="tier-cadence">
+              <div class="tier-cadence-value">Weekly</div>
+              <div class="tier-cadence-label">Strategy session cadence</div>
+            </div>
+            <div class="tier-meter"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></div>
+            <div class="tier-meter-label">Hands-on partner</div>
             <div class="tier-items">
-              <div class="tier-item">Everything in Get Clear</div>
-              <div class="tier-item">Sales decks, battlecards, one-pagers</div>
-              <div class="tier-item">Content, social, and thought leadership</div>
-              <div class="tier-item">Demand generation campaigns</div>
-              <div class="tier-item">Sales team training and enablement</div>
-              <div class="tier-item">Win/loss analysis</div>
-              <div class="tier-item">Strategic context engine</div>
-              <div class="tier-item">AI marketing assistant</div>
+              <div class="tier-item constant">Your full team: strategy + execution</div>
+              <div class="tier-item">Several workstreams running in parallel</div>
+              <div class="tier-item">Steady output across content, sales, and demand gen</div>
             </div>
           </div>
         </div>
@@ -929,22 +964,26 @@ footer p { font-size: 12px; }
           <div class="tier-accordion-header" onclick="toggleTier(this)">
             <div class="tier-accordion-left">
               <span class="tier-accordion-price">$30K/mo</span>
-              <span class="tier-accordion-name">Get there faster.</span>
+              <span class="tier-accordion-name">Scale.</span>
             </div>
             <span class="tier-accordion-arrow">▼</span>
           </div>
           <div class="tier-accordion-body">
-            <span class="tier-badge">Accelerate</span>
+            <div class="tier-head">
+              <span class="tier-title">Scale.</span>
+            </div>
             <div class="tier-price">$30K<span style="font-size:18px;opacity:0.5;font-style:normal;">/mo</span></div>
-            <div class="tier-name">Get there faster.</div>
             <div class="tier-divider"></div>
+            <div class="tier-cadence">
+              <div class="tier-cadence-value">2–3&times; / week</div>
+              <div class="tier-cadence-label">Strategy session cadence</div>
+            </div>
+            <div class="tier-meter"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div>
+            <div class="tier-meter-label">Fully embedded</div>
             <div class="tier-items">
-              <div class="tier-item">Everything in Get Moving</div>
-              <div class="tier-item">Dedicated demand gen — more volume</div>
-              <div class="tier-item">Product launch playbooks</div>
-              <div class="tier-item">Weekly strategy and reporting</div>
-              <div class="tier-item">Priority turnaround on deliverables</div>
-              <div class="tier-item">AI instant content builder</div>
+              <div class="tier-item constant">Your full team: strategy + execution</div>
+              <div class="tier-item">Full capacity across every GTM motion</div>
+              <div class="tier-item">Priority turnaround and the fastest velocity</div>
             </div>
           </div>
         </div>

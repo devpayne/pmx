@@ -441,20 +441,28 @@ h2 em { font-style: italic; color: var(--blue); }
   .tier-accordion-body { display: none; padding: 1.5rem; }
   .tier.open .tier-accordion-body { display: block; }
 }
-.tier-badge {
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); display: block; margin-bottom: 0.75rem;
+.tier-head {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.9rem; min-height: 26px;
 }
-.tier.featured .tier-badge { color: #9ba3ff; }
+.tier-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px; font-weight: 700; color: #fff;
+  letter-spacing: -0.01em;
+}
+.tier-pill {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: #9ba3ff;
+  background: rgba(155,163,255,0.13);
+  border: 1px solid rgba(155,163,255,0.32);
+  padding: 3px 9px; border-radius: 100px;
+  white-space: nowrap;
+}
 .tier-price {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 36px; font-weight: 400;
-  color: white; margin-bottom: 0.25rem;
-}
-.tier-name {
-  font-size: 14px; color: rgba(255,255,255,0.5);
-  margin-bottom: 1.25rem;
+  color: white; margin-bottom: 1.25rem;
 }
 .tier-divider {
   height: 1px; background: rgba(255,255,255,0.08);
@@ -905,9 +913,10 @@ footer p { font-size: 12px; }
             <span class="tier-accordion-arrow">▼</span>
           </div>
           <div class="tier-accordion-body">
-            <span class="tier-badge">Foundation</span>
+            <div class="tier-head">
+              <span class="tier-title">Clarity.</span>
+            </div>
             <div class="tier-price">$10K<span style="font-size:18px;opacity:0.5;font-style:normal;">/mo</span></div>
-            <div class="tier-name">Clarity.</div>
             <div class="tier-divider"></div>
             <div class="tier-cadence">
               <div class="tier-cadence-value">Monthly</div>
@@ -926,14 +935,16 @@ footer p { font-size: 12px; }
           <div class="tier-accordion-header" onclick="toggleTier(this)">
             <div class="tier-accordion-left">
               <span class="tier-accordion-price">$20K/mo</span>
-              <span class="tier-accordion-name">Momentum.</span>
+              <span class="tier-accordion-name">Momentum. <span class="tier-pill">Most popular</span></span>
             </div>
             <span class="tier-accordion-arrow">▼</span>
           </div>
           <div class="tier-accordion-body">
-            <span class="tier-badge">Most Popular</span>
+            <div class="tier-head">
+              <span class="tier-title">Momentum.</span>
+              <span class="tier-pill">Most popular</span>
+            </div>
             <div class="tier-price">$20K<span style="font-size:18px;opacity:0.7;font-style:normal;">/mo</span></div>
-            <div class="tier-name">Momentum.</div>
             <div class="tier-divider"></div>
             <div class="tier-cadence">
               <div class="tier-cadence-value">Weekly</div>
@@ -957,9 +968,10 @@ footer p { font-size: 12px; }
             <span class="tier-accordion-arrow">▼</span>
           </div>
           <div class="tier-accordion-body">
-            <span class="tier-badge">Accelerate</span>
+            <div class="tier-head">
+              <span class="tier-title">Scale.</span>
+            </div>
             <div class="tier-price">$30K<span style="font-size:18px;opacity:0.5;font-style:normal;">/mo</span></div>
-            <div class="tier-name">Scale.</div>
             <div class="tier-divider"></div>
             <div class="tier-cadence">
               <div class="tier-cadence-value">2–3&times; / week</div>

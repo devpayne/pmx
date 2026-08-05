@@ -623,6 +623,22 @@ footer p { font-size: 12px; }
   .nav-link { font-size: 12px; }
   .nav-cta { padding: 0.45rem 1rem; font-size: 12px; }
 }
+
+/* ── Accessibility: honor reduced-motion & show a clear keyboard focus ring ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+}
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
 </style>
 </head>
 <body>

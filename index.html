@@ -220,7 +220,7 @@ nav {
 /* ── SECTIONS ── */
 section { background: var(--white); }
 section:nth-child(even) { background: var(--soft); }
-#how, #strat, #both, #offerings, #pricing, #contact {
+#how, #strat, #both, #offerings, #pricing, #contact, #compare {
   padding: 6rem 0;
 }
 .section-wrap {
@@ -612,6 +612,52 @@ footer {
 .footer-logo em { font-style: italic; color: var(--blue); }
 footer p { font-size: 12px; }
 
+/* ── COMPARE ── */
+.compare-header { max-width: 60ch; margin-bottom: 3rem; }
+.compare-header p {
+  font-size: 16px; color: var(--muted); line-height: 1.7; margin-top: 1rem;
+}
+.compare-header p em { font-style: italic; color: var(--black); font-weight: 600; }
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--rule); border-radius: 4px;
+  overflow: hidden; background: var(--white);
+}
+.compare-cell {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 1.15rem 1.75rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+}
+.compare-cell.old { color: var(--muted); }
+.compare-cell.new {
+  border-left: 1px solid var(--rule);
+  background: linear-gradient(180deg, rgba(75,82,232,0.06), rgba(75,82,232,0.015));
+  color: var(--black); font-weight: 600;
+}
+.compare-grid > .compare-cell:nth-last-child(-n+2) { border-bottom: none; }
+.compare-cell::before {
+  content: ''; flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; line-height: 1;
+}
+.compare-cell.old::before { content: '–'; background: rgba(0,0,0,0.06); color: var(--muted); }
+.compare-cell.new::before { content: '✓'; background: rgba(75,82,232,0.14); color: var(--blue); }
+.compare-cell.head {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--soft); color: var(--muted);
+}
+.compare-cell.head.new {
+  background: rgba(75,82,232,0.09); color: var(--blue);
+  letter-spacing: normal; text-transform: none; gap: 8px;
+}
+.compare-cell.head::before { display: none; }
+.compare-cell.head.new svg { width: 20px; height: 20px; flex-shrink: 0; }
+.compare-cell.head.new .wordmark { font-size: 15px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; }
+.compare-cell.head.new .wordmark em { font-style: italic; color: var(--blue); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
   nav { padding: 1rem 1.5rem; }
@@ -628,7 +674,9 @@ footer p { font-size: 12px; }
   .funnel { margin-top: 3.5rem; padding-top: 3rem; }
   .tier-grid { grid-template-columns: 1fr; }
   .contact-inner { grid-template-columns: 1fr; gap: 3.5rem; }
-  #how, #strat, #both, #offerings, #pricing, #contact { padding: 4rem 0; }
+  .compare-cell { padding: 0.95rem 1.1rem; font-size: 13.5px; gap: 0.5rem; }
+  .compare-cell.head.new .wordmark { font-size: 14px; }
+  #how, #strat, #both, #offerings, #pricing, #contact, #compare { padding: 4rem 0; }
 }
 @media (max-width: 600px) {
   .nav-links { gap: 0.75rem; }
@@ -952,6 +1000,48 @@ footer p { font-size: 12px; }
           <p class="funnel-note">The right message for every GTM team turns more of that volume into pipeline: <em>more leads and a wider bottom of funnel.</em></p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="section-wrap">
+    <div class="compare-header reveal-on-scroll">
+      <h2>One hire, or <em>a whole team.</em></h2>
+      <p>A single PMM can only be in one place at once. PMx gives you the <em>whole function from day one.</em></p>
+    </div>
+    <div class="compare-grid reveal-on-scroll">
+      <div class="compare-cell head old">One PMM hire</div>
+      <div class="compare-cell head new">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PMx logo">
+          <defs>
+            <linearGradient id="wg4" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1a1a1a"/>
+              <stop offset="100%" stop-color="#4B52E8"/>
+            </linearGradient>
+          </defs>
+          <line x1="28" y1="172" x2="172" y2="28" stroke="#4B52E8" stroke-width="42" stroke-linecap="round"/>
+          <line x1="28" y1="28" x2="172" y2="172" stroke="#1a1a1a" stroke-width="42" stroke-linecap="round"/>
+          <polygon points="62,8 138,8 100,52" fill="url(#wg4)"/>
+        </svg>
+        <span class="wordmark">PM<em>x</em></span>
+      </div>
+
+      <div class="compare-cell old">4 months to hire</div>
+      <div class="compare-cell new">Live in days</div>
+
+      <div class="compare-cell old">One skill set</div>
+      <div class="compare-cell new">Research + content + enablement</div>
+
+      <div class="compare-cell old">Strategy or execution</div>
+      <div class="compare-cell new">Strategy and execution</div>
+
+      <div class="compare-cell old">Ramps for a quarter</div>
+      <div class="compare-cell new">Ships week one</div>
+
+      <div class="compare-cell old">You manage them</div>
+      <div class="compare-cell new">We run the playbook</div>
     </div>
   </div>
 </section>

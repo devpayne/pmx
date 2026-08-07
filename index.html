@@ -562,21 +562,24 @@ h2 em { font-style: italic; color: var(--blue); }
 }
 
 /* ── CONTACT ── */
-#contact { background: var(--white); }
+#contact { background: var(--black); }
+#contact h2 { color: white; }
+#contact h2 em { color: #9ba3ff; }
 .contact-inner {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 5rem; align-items: start;
 }
+.contact-text { color: rgba(255,255,255,0.8); }
 .contact-text p {
-  font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 2rem;
+  font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 2rem;
 }
 .contact-details { display: flex; flex-direction: column; gap: 1.25rem; }
 .cd { display: flex; flex-direction: column; gap: 3px; }
-.cd strong { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
-.cd a { font-size: 15px; color: var(--blue); text-decoration: none; }
+.cd strong { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); }
+.cd a { font-size: 15px; color: #9ba3ff; text-decoration: none; }
 .contact-form { display: flex; flex-direction: column; gap: 1rem; }
 .field-group { display: flex; flex-direction: column; gap: 5px; }
-.field-group label { font-size: 12px; font-weight: 500; color: var(--muted); }
+.field-group label { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.6); }
 .field-group input, .field-group textarea {
   padding: 0.75rem 1rem;
   border: 1px solid var(--rule); border-radius: 2px;
@@ -590,12 +593,12 @@ h2 em { font-style: italic; color: var(--blue); }
 .field-group textarea { min-height: 100px; resize: vertical; }
 .form-submit {
   align-self: flex-start;
-  background: var(--black); color: white;
+  background: white; color: var(--black);
   font-size: 15px; font-weight: 600;
   padding: 0.85rem 2rem; border-radius: 100px;
-  border: none; cursor: pointer; transition: background 0.15s;
+  border: none; cursor: pointer; transition: background 0.15s, color 0.15s;
 }
-.form-submit:hover { background: var(--blue); }
+.form-submit:hover { background: var(--blue); color: white; }
 
 /* ── FOOTER ── */
 footer {

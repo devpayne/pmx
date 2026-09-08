@@ -52,7 +52,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -659,12 +659,7 @@ footer p { font-size: 12px; }
 .compare-cell.head.new .wordmark em { font-style: italic; color: var(--blue); }
 
 /* ── CLIENTS ── */
-.visually-hidden {
-  position: absolute; width: 1px; height: 1px;
-  padding: 0; margin: -1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
-.clients-header { text-align: center; margin-bottom: 3rem; }
+.clients-header { text-align: center; margin-bottom: 3.25rem; }
 .clients-eyebrow {
   font-size: 12px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase;
@@ -673,52 +668,24 @@ footer p { font-size: 12px; }
 .clients-row {
   display: flex; flex-wrap: wrap;
   align-items: center; justify-content: center;
-  gap: 2.75rem 4.5rem;
+  gap: 2.5rem 4rem;
 }
 .client {
-  color: #1a1a1a; opacity: 0.5;
-  transition: opacity 0.28s ease;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  height: 58px; text-align: center;
+  display: flex; align-items: center; justify-content: center;
 }
-.client:hover { opacity: 0.92; }
-.client svg { display: block; }
-.client .cl-main {
-  font-weight: 800; letter-spacing: -0.01em;
-  line-height: 1; white-space: nowrap;
+.client img {
+  width: auto; object-fit: contain; display: block;
+  transition: transform 0.25s ease;
 }
-.client .cl-sub {
-  font-size: 8px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  line-height: 1;
-}
-/* American Family */
-.client.af .af-roof { margin-bottom: 5px; }
-.client.af .cl-main { font-size: 15px; }
-.client.af .af-ins {
-  margin-top: 4px; background: #1a1a1a; color: var(--white);
-  padding: 2px 7px; font-size: 8px; letter-spacing: 0.2em; font-weight: 800;
-  border-radius: 1px;
-}
-/* Prime Powersports */
-.client.prime svg { margin-bottom: 4px; }
-.client.prime .cl-main { font-size: 17px; font-style: italic; }
-.client.prime .cl-sub { margin-top: 4px; }
-/* Skyline Dental */
-.client.skyline svg { margin-bottom: 2px; }
-.client.skyline .cl-main {
-  font-family: 'Dancing Script', cursive; font-weight: 700;
-  font-size: 26px; letter-spacing: 0;
-}
-.client.skyline .cl-sub { margin-top: 1px; font-size: 7px; letter-spacing: 0.14em; }
-/* GroupThat */
-.client.group { flex-direction: row; gap: 0.6rem; }
-.client.group .cl-main { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
-/* Reps */
-.client.reps svg { height: 30px; width: auto; }
+.client:hover img { transform: translateY(-2px); }
+/* per-logo optical sizing */
+.client.af img      { height: 60px; }
+.client.prime img   { height: 48px; }
+.client.skyline img { height: 54px; }
+.client.group img   { height: 46px; }
+.client.reps img    { height: 33px; }
 .clients-note {
-  text-align: center; margin-top: 3rem;
+  text-align: center; margin-top: 3.25rem;
   font-size: 14px; color: var(--muted); line-height: 1.65;
   max-width: 52ch; margin-left: auto; margin-right: auto;
 }
@@ -743,7 +710,12 @@ footer p { font-size: 12px; }
   .compare-cell { padding: 0.95rem 1.1rem; font-size: 13.5px; gap: 0.5rem; }
   .compare-cell.head.new .wordmark { font-size: 14px; }
   #how, #strat, #both, #offerings, #pricing, #contact, #compare, #clients { padding: 4rem 0; }
-  .clients-row { gap: 2.25rem 3rem; }
+  .clients-row { gap: 2rem 2.75rem; }
+  .client.af img      { height: 50px; }
+  .client.prime img   { height: 40px; }
+  .client.skyline img { height: 45px; }
+  .client.group img   { height: 39px; }
+  .client.reps img    { height: 28px; }
 }
 @media (max-width: 600px) {
   .nav-links { gap: 0.75rem; }
@@ -1120,61 +1092,11 @@ footer p { font-size: 12px; }
       <p class="clients-eyebrow">Companies we've worked with</p>
     </div>
     <div class="clients-row reveal-on-scroll">
-
-      <div class="client af">
-        <svg class="af-roof" width="120" height="10" viewBox="0 0 120 10" fill="none" aria-hidden="true">
-          <path d="M3 8 Q60 -1 117 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-        </svg>
-        <span class="cl-main">AMERICAN FAMILY</span>
-        <span class="af-ins">INSURANCE</span>
-        <span class="visually-hidden">American Family Insurance</span>
-      </div>
-
-      <div class="client prime">
-        <svg width="62" height="20" viewBox="0 0 62 20" aria-hidden="true">
-          <path d="M2 19 L15 5 L23 12 L33 2 L43 11 L52 5 L60 19 Z" fill="currentColor"/>
-        </svg>
-        <span class="cl-main">PRIME</span>
-        <span class="cl-sub">Powersports</span>
-        <span class="visually-hidden">Prime Powersports</span>
-      </div>
-
-      <div class="client skyline">
-        <svg width="120" height="18" viewBox="0 0 120 18" fill="none" aria-hidden="true">
-          <path d="M2 16 C26 4 44 6 62 11 C82 17 102 4 118 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-          <path d="M46 6 q3.5 -3.5 7 0 q3.5 -3.5 7 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M66 3 q3 -3 6 0 q3 -3 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        <span class="cl-main">Skyline Dental</span>
-        <span class="cl-sub">Family &amp; Cosmetic Dentistry</span>
-        <span class="visually-hidden">Skyline Dental</span>
-      </div>
-
-      <div class="client group">
-        <svg width="44" height="30" viewBox="0 0 66 40" fill="none" aria-hidden="true">
-          <path d="M16 20 C16 7 31 7 33 20 C35 33 50 33 50 20 C50 7 35 7 33 20 C31 33 16 33 16 20 Z" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
-        </svg>
-        <span class="cl-main">GroupThat</span>
-      </div>
-
-      <div class="client reps" role="img" aria-label="Reps">
-        <svg width="3375" height="1059" viewBox="0 0 3375 1059" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<path d="M3374.24 395.127L3254.48 407.551C3253.15 395.293 3249.18 383.863 3242.55 373.262C3236.26 362.661 3226.98 354.213 3214.72 347.919C3202.47 341.293 3186.4 337.98 3166.52 337.98C3138.69 338.311 3114.01 344.937 3092.48 357.857C3070.94 370.446 3058.69 386.679 3055.71 406.557C3053.06 421.465 3056.7 433.722 3066.64 443.33C3076.58 452.606 3094.96 460.557 3121.8 467.182L3213.23 487.06C3263.92 498.324 3300.36 516.71 3322.56 542.219C3345.09 567.728 3353.04 600.692 3346.41 641.109C3340.45 675.563 3325.37 705.71 3301.19 731.551C3277.01 757.391 3246.2 777.6 3208.76 792.176C3171.33 806.753 3129.75 814.041 3084.03 814.041C3015.12 814.041 2961.95 799.63 2924.52 770.808C2887.41 741.986 2869.02 702.232 2869.36 651.544L2998.06 639.618C2999.72 664.465 3008.5 683.182 3024.4 695.771C3040.63 708.36 3062.99 714.82 3091.48 715.152C3123.95 715.483 3151.28 708.692 3173.48 694.778C3195.67 680.863 3208.26 663.968 3211.25 644.09C3213.9 629.182 3210.25 617.09 3200.31 607.814C3190.71 598.207 3173.31 590.587 3148.14 584.955L3057.2 565.078C3005.52 553.814 2968.74 534.6 2946.88 507.434C2925.34 480.268 2918.06 445.98 2925.01 404.569C2930.98 371.109 2945.06 342.121 2967.25 317.606C2989.78 293.09 3018.6 274.207 3053.72 260.955C3089.17 247.373 3128.92 240.581 3172.98 240.581C3239.24 240.581 3289.1 254.495 3322.56 282.324C3356.02 310.152 3373.25 347.753 3374.24 395.127Z" fill="black"/>
-<path d="M2265.8 1010.83L2394.01 247.538H2522.72L2507.31 339.471H2514.77C2523.71 326.219 2535.47 311.974 2550.05 296.735C2564.96 281.164 2583.84 267.913 2606.7 256.98C2629.89 246.047 2657.88 240.581 2690.68 240.581C2733.42 240.581 2770.03 251.514 2800.5 273.379C2831.31 295.244 2853.34 327.379 2866.6 369.784C2880.18 412.189 2881.84 464.366 2871.57 526.317C2861.63 587.274 2843.07 639.121 2815.91 681.857C2788.74 724.593 2756.11 757.06 2718.01 779.256C2679.92 801.452 2639 812.716 2595.27 813.047C2563.47 812.716 2537.96 807.416 2518.74 797.146C2499.53 786.544 2484.79 773.624 2474.52 758.385C2464.58 743.146 2457.29 728.735 2452.65 715.152H2446.69L2397.49 1010.83H2265.8ZM2577.38 705.71C2605.87 705.71 2631.05 697.925 2652.92 682.354C2675.11 666.784 2693.33 645.416 2707.58 618.25C2722.15 591.084 2732.42 560.274 2738.39 525.82C2743.69 491.366 2743.52 460.722 2737.89 433.888C2732.59 407.054 2721.49 386.017 2704.6 370.778C2688.03 355.538 2665.34 347.919 2636.52 347.919C2608.36 347.919 2583.18 355.373 2560.98 370.281C2538.79 384.857 2520.4 405.397 2505.82 431.9C2491.58 458.403 2481.64 489.71 2476.01 525.82C2470.04 561.6 2469.88 593.072 2475.51 620.238C2481.47 647.072 2492.9 668.109 2509.8 683.348C2526.69 698.256 2549.22 705.71 2577.38 705.71Z" fill="black"/>
-<path d="M2019.54 814.041C1963.23 814.041 1916.18 802.281 1878.42 778.759C1840.65 754.906 1813.98 721.446 1798.41 678.379C1782.84 634.98 1779.69 583.962 1788.97 525.324C1798.58 468.673 1817.13 419.146 1844.62 376.741C1872.12 334.005 1906.74 300.71 1948.48 276.857C1990.56 252.673 2037.77 240.581 2090.11 240.581C2124.56 240.581 2156.53 246.213 2186.02 257.477C2215.83 268.741 2241.01 285.968 2261.55 309.158C2282.42 332.017 2297 361.17 2305.28 396.618C2313.89 432.066 2314.23 474.14 2306.27 522.839L2299.81 561.6H1844.13L1859.04 473.643H2249.62L2184.03 497.495C2189.33 466.354 2189.5 439.189 2184.53 415.998C2179.89 392.808 2169.78 374.753 2154.21 361.833C2138.97 348.913 2117.44 342.452 2089.61 342.452C2061.12 342.452 2035.12 349.244 2011.59 362.827C1988.4 376.409 1969.19 394.465 1953.95 416.992C1938.71 439.52 1928.77 464.532 1924.13 492.029L1914.2 553.152C1908.56 587.274 1909.06 616.262 1915.69 640.115C1922.31 663.636 1934.9 681.526 1953.45 693.784C1972 706.041 1995.86 712.17 2025.01 712.17C2044.89 712.17 2063.27 709.354 2080.17 703.722C2097.07 698.09 2112.14 689.808 2125.39 678.876C2138.64 667.943 2149.41 654.526 2157.69 638.624L2278.45 656.017C2265.19 688.152 2246.31 716.146 2221.8 739.998C2197.61 763.52 2168.46 781.741 2134.34 794.661C2100.21 807.581 2061.95 814.041 2019.54 814.041Z" fill="black"/>
-<path d="M1182.43 803.109L1305.17 62.6797H1583.45C1640.1 62.6797 1686.15 72.6184 1721.6 92.4957C1757.05 112.373 1781.73 140.036 1795.64 175.483C1809.56 210.931 1812.54 252.342 1804.59 299.717C1796.97 346.759 1780.07 387.839 1753.9 422.956C1728.06 457.741 1694.1 484.575 1652.03 503.459C1609.96 522.342 1560.26 531.784 1502.95 531.784H1305.17L1325.05 420.968H1503.95C1537.41 420.968 1565.4 416.33 1587.93 407.054C1610.79 397.778 1628.68 384.195 1641.6 366.305C1654.85 348.085 1663.63 325.888 1667.93 299.717C1674.23 260.293 1667.6 229.649 1648.06 207.784C1628.51 185.919 1593.89 174.986 1544.2 174.986H1420.96L1317.1 803.109H1182.43ZM1598.36 803.109L1474.13 467.183H1620.23L1747.94 803.109H1598.36Z" fill="black"/>
-<g clip-path="url(#clip0_29824_34617)">
-<path d="M326.443 681.285L387.004 330.522L525.505 354.435C528.062 354.876 530.697 354.288 532.819 352.791L841.128 135.27C844.353 132.995 845.913 128.992 845.043 125.115C844.172 121.239 841.054 118.291 837.147 117.617L489.205 57.5422C465.712 53.4859 441.389 55.0988 418.848 62.2111C389.349 71.5001 362.846 90.199 344.203 114.875C329.944 133.726 320.241 156.12 316.184 179.614L309.175 220.209L268.58 213.2C245.69 209.248 222.917 210.656 200.898 217.337C170.704 226.481 143.748 245.499 125.008 270.879C111.303 289.403 102.34 310.385 98.3875 333.276L1.66468 893.479C0.990018 897.387 2.7217 901.312 6.0816 903.433C7.17606 904.143 8.39285 904.577 9.64713 904.793C12.1557 905.227 14.7867 904.662 16.9606 903.15L322.442 687.624C324.563 686.127 326.001 683.842 326.443 681.285ZM458.081 149.043L617.085 176.496L506.772 254.325L403.246 236.451L412.825 180.973C416.498 159.699 436.807 145.37 458.081 149.043ZM239.868 305.118L292.933 314.28L238.41 630.068L130.926 705.901L194.611 337.047C198.284 315.773 218.593 301.444 239.868 305.118Z" fill="black"/>
-<path d="M1051.72 156.85C1050.62 156.139 1049.41 155.706 1048.15 155.489C1045.64 155.056 1043.01 155.62 1040.84 157.133L735.358 372.659C733.237 374.155 731.799 376.441 731.357 378.997L671.212 727.349L530.299 703.019C527.742 702.578 525.107 703.166 522.986 704.663L214.676 922.184C211.451 924.459 209.891 928.462 210.762 932.339C211.632 936.215 214.75 939.163 218.658 939.837L569.011 1000.33C592.505 1004.38 616.828 1002.77 639.368 995.659C668.867 986.37 695.371 967.671 714.013 942.995C728.272 924.144 737.976 901.75 742.032 878.257L749.041 837.661L789.636 844.67C812.527 848.623 835.3 847.214 857.319 840.533C887.513 831.389 914.469 812.371 933.208 786.991C946.914 768.467 955.877 747.485 959.829 724.594L1056.14 166.803C1056.81 162.896 1055.08 158.97 1051.72 156.85ZM818.349 752.753L765.283 743.591L819.39 430.214L926.874 354.381L863.605 720.823C859.932 742.097 839.623 756.426 818.349 752.753ZM600.135 908.827L439.926 881.166L550.238 803.337L654.97 821.419L645.392 876.897C641.719 898.172 621.41 912.5 600.135 908.827Z" fill="black"/>
-</g>
-<defs>
-<clipPath id="clip0_29824_34617">
-<rect width="915.462" height="916.49" fill="white" transform="translate(155.93) rotate(9.79591)"/>
-</clipPath>
-</defs>
-        </svg>
-      </div>
-
+      <div class="client af"><img src="assets/logos/american-family.png" alt="American Family Insurance" loading="lazy"></div>
+      <div class="client prime"><img src="assets/logos/prime-powersports.png" alt="Prime Powersports" loading="lazy"></div>
+      <div class="client skyline"><img src="assets/logos/skyline-dental.png" alt="Skyline Dental" loading="lazy"></div>
+      <div class="client group"><img src="assets/logos/groupthat.png" alt="GroupThat" loading="lazy"></div>
+      <div class="client reps"><img src="assets/logos/reps.svg" alt="Reps" loading="lazy"></div>
     </div>
     <p class="clients-note reveal-on-scroll">Teams across insurance, powersports, dental, sports, and tech have trusted PMx to help tell <em>their story.</em></p>
   </div>

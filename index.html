@@ -52,7 +52,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -220,7 +220,7 @@ nav {
 /* ── SECTIONS ── */
 section { background: var(--white); }
 section:nth-child(even) { background: var(--soft); }
-#how, #strat, #both, #offerings, #pricing, #contact, #compare {
+#how, #strat, #both, #offerings, #pricing, #contact, #compare, #clients {
   padding: 6rem 0;
 }
 .section-wrap {
@@ -658,6 +658,70 @@ footer p { font-size: 12px; }
 .compare-cell.head.new .wordmark { font-size: 15px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; }
 .compare-cell.head.new .wordmark em { font-style: italic; color: var(--blue); }
 
+/* ── CLIENTS ── */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.clients-header { text-align: center; margin-bottom: 3rem; }
+.clients-eyebrow {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+}
+.clients-row {
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+  gap: 2.75rem 4.5rem;
+}
+.client {
+  color: #1a1a1a; opacity: 0.5;
+  transition: opacity 0.28s ease;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 58px; text-align: center;
+}
+.client:hover { opacity: 0.92; }
+.client svg { display: block; }
+.client .cl-main {
+  font-weight: 800; letter-spacing: -0.01em;
+  line-height: 1; white-space: nowrap;
+}
+.client .cl-sub {
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  line-height: 1;
+}
+/* American Family */
+.client.af .af-roof { margin-bottom: 5px; }
+.client.af .cl-main { font-size: 15px; }
+.client.af .af-ins {
+  margin-top: 4px; background: #1a1a1a; color: var(--white);
+  padding: 2px 7px; font-size: 8px; letter-spacing: 0.2em; font-weight: 800;
+  border-radius: 1px;
+}
+/* Prime Powersports */
+.client.prime svg { margin-bottom: 4px; }
+.client.prime .cl-main { font-size: 17px; font-style: italic; }
+.client.prime .cl-sub { margin-top: 4px; }
+/* Skyline Dental */
+.client.skyline svg { margin-bottom: 2px; }
+.client.skyline .cl-main {
+  font-family: 'Dancing Script', cursive; font-weight: 700;
+  font-size: 26px; letter-spacing: 0;
+}
+.client.skyline .cl-sub { margin-top: 1px; font-size: 7px; letter-spacing: 0.14em; }
+/* GroupThat */
+.client.group { flex-direction: row; gap: 0.6rem; }
+.client.group .cl-main { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+.clients-note {
+  text-align: center; margin-top: 3rem;
+  font-size: 14px; color: var(--muted); line-height: 1.65;
+  max-width: 52ch; margin-left: auto; margin-right: auto;
+}
+.clients-note em { font-style: italic; color: var(--black); font-weight: 600; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
   nav { padding: 1rem 1.5rem; }
@@ -676,7 +740,8 @@ footer p { font-size: 12px; }
   .contact-inner { grid-template-columns: 1fr; gap: 3.5rem; }
   .compare-cell { padding: 0.95rem 1.1rem; font-size: 13.5px; gap: 0.5rem; }
   .compare-cell.head.new .wordmark { font-size: 14px; }
-  #how, #strat, #both, #offerings, #pricing, #contact, #compare { padding: 4rem 0; }
+  #how, #strat, #both, #offerings, #pricing, #contact, #compare, #clients { padding: 4rem 0; }
+  .clients-row { gap: 2.25rem 3rem; }
 }
 @media (max-width: 600px) {
   .nav-links { gap: 0.75rem; }
@@ -1043,6 +1108,55 @@ footer p { font-size: 12px; }
       <div class="compare-cell old">You manage them</div>
       <div class="compare-cell new">We run the playbook</div>
     </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="section-wrap">
+    <div class="clients-header reveal-on-scroll">
+      <p class="clients-eyebrow">Companies we've worked with</p>
+    </div>
+    <div class="clients-row reveal-on-scroll">
+
+      <div class="client af">
+        <svg class="af-roof" width="120" height="10" viewBox="0 0 120 10" fill="none" aria-hidden="true">
+          <path d="M3 8 Q60 -1 117 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <span class="cl-main">AMERICAN FAMILY</span>
+        <span class="af-ins">INSURANCE</span>
+        <span class="visually-hidden">American Family Insurance</span>
+      </div>
+
+      <div class="client prime">
+        <svg width="62" height="20" viewBox="0 0 62 20" aria-hidden="true">
+          <path d="M2 19 L15 5 L23 12 L33 2 L43 11 L52 5 L60 19 Z" fill="currentColor"/>
+        </svg>
+        <span class="cl-main">PRIME</span>
+        <span class="cl-sub">Powersports</span>
+        <span class="visually-hidden">Prime Powersports</span>
+      </div>
+
+      <div class="client skyline">
+        <svg width="120" height="18" viewBox="0 0 120 18" fill="none" aria-hidden="true">
+          <path d="M2 16 C26 4 44 6 62 11 C82 17 102 4 118 13" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M46 6 q3.5 -3.5 7 0 q3.5 -3.5 7 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M66 3 q3 -3 6 0 q3 -3 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <span class="cl-main">Skyline Dental</span>
+        <span class="cl-sub">Family &amp; Cosmetic Dentistry</span>
+        <span class="visually-hidden">Skyline Dental</span>
+      </div>
+
+      <div class="client group">
+        <svg width="44" height="30" viewBox="0 0 66 40" fill="none" aria-hidden="true">
+          <path d="M16 20 C16 7 31 7 33 20 C35 33 50 33 50 20 C50 7 35 7 33 20 C31 33 16 33 16 20 Z" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <span class="cl-main">GroupThat</span>
+      </div>
+
+    </div>
+    <p class="clients-note reveal-on-scroll">Teams across insurance, powersports, dental, and tech have trusted PMx to help tell <em>their story.</em></p>
   </div>
 </section>
 

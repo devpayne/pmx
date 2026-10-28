@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMx Kickstart — Product marketing in a box</title>
+<meta name="description" content="The PMx Kickstart: six weeks, one fixed price. Discovery, positioning, content, and sales enablement — your whole product marketing function, in a box.">
+<meta name="theme-color" content="#4B52E8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%234B52E8'/><text x='16' y='22' font-family='Arial,Helvetica,sans-serif' font-size='16' font-weight='700' fill='%23ffffff' text-anchor='middle'>Px</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #1a1a1a;
+  --white: #ffffff;
+  --blue: #4B52E8;
+  --lilac: #9ba3ff;
+  --soft: #f4f4f8;
+  --muted: #5f5f6e;
+  --rule: rgba(0,0,0,0.08);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--soft);
+  color: var(--black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 3rem;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-text { font-size: 20px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; }
+.nav-logo-text em { font-style: italic; color: var(--blue); }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-link { font-size: 13px; color: var(--muted); text-decoration: none; }
+.nav-link:hover, .nav-link.current { color: var(--black); }
+.nav-link.current { font-weight: 600; }
+.nav-cta {
+  font-size: 13px; font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  background: var(--black); color: white !important;
+  border-radius: 100px; text-decoration: none;
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--blue); }
+
+/* ── HERO ── */
+.hero {
+  background:
+    radial-gradient(ellipse 60% 70% at 85% 40%, rgba(75,82,232,0.35), transparent 70%),
+    #0d0d12;
+  color: white;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1080px; margin: 0 auto;
+  padding: 9rem 3rem 6rem;
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--lilac); margin-bottom: 1.75rem;
+}
+.hero-kicker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lilac); }
+.hero h1 {
+  font-size: clamp(46px, 6vw, 80px);
+  font-weight: 800; line-height: 0.98;
+  letter-spacing: -0.04em; margin-bottom: 1.75rem;
+}
+.hero h1 em { font-style: normal; color: var(--lilac); }
+.hero-sub {
+  font-size: 18px; font-weight: 300;
+  color: rgba(255,255,255,0.62);
+  max-width: 44ch; line-height: 1.65; margin-bottom: 2.5rem;
+}
+.hero-facts { display: flex; gap: 2.25rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.fact-value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.fact-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; }
+.hero-cta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-block; white-space: nowrap;
+  background: var(--blue); color: white;
+  font-size: 15px; font-weight: 600;
+  padding: 0.85rem 2rem;
+  border-radius: 100px; text-decoration: none;
+  transition: opacity 0.15s;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost {
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+}
+.btn-ghost:hover { color: white; }
+
+/* The box illustration */
+.box-art { position: relative; }
+.box-art svg { display: block; width: 100%; height: auto; }
+.box-tag {
+  position: absolute;
+  font-size: 11px; font-weight: 600;
+  padding: 0.35rem 0.8rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 100px;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+  animation: floaty 5s ease-in-out infinite;
+}
+.box-tag:nth-of-type(2) { animation-delay: -1.2s; }
+.box-tag:nth-of-type(3) { animation-delay: -2.4s; }
+.box-tag:nth-of-type(4) { animation-delay: -3.6s; }
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ── SECTIONS ── */
+section { padding: 6rem 0; background: var(--white); }
+section.soft { background: var(--soft); }
+.section-wrap { max-width: 1080px; margin: 0 auto; padding: 0 3rem; }
+h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700; line-height: 1.08;
+  letter-spacing: -0.03em; margin-bottom: 1.25rem;
+}
+h2 em { font-style: italic; color: var(--blue); }
+.lede { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 58ch; }
+.lede em { font-style: italic; color: var(--black); font-weight: 600; }
+.eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.75rem;
+}
+
+/* ── WHAT'S IN THE BOX ── */
+.box-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.phase-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tab-btn {
+  font-family: inherit;
+  font-size: 13px; font-weight: 500;
+  padding: 0.5rem 1.25rem; border-radius: 100px;
+  border: 1px solid var(--rule);
+  background: transparent; color: var(--muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.tab-btn.active, .tab-btn:hover { background: var(--black); color: white; border-color: var(--black); }
+.contents {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+.item {
+  background: var(--soft); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  transition: opacity 0.25s, transform 0.25s, border-color 0.25s;
+}
+.item.dim { opacity: 0.28; transform: scale(0.98); }
+.item.lit { border-color: rgba(75,82,232,0.45); background: linear-gradient(180deg, rgba(75,82,232,0.07), rgba(75,82,232,0.01)); }
+.item-top { display: flex; justify-content: space-between; align-items: center; }
+.item-phase {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 100px;
+}
+.p1 .item-phase { background: #eef; color: var(--blue); }
+.p2 .item-phase { background: var(--blue); color: white; }
+.p3 .item-phase { background: var(--black); color: white; }
+.item-qty { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--blue); }
+.item h4 { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.item p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+.box-total {
+  margin-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px dashed rgba(75,82,232,0.4); border-radius: 4px;
+  font-size: 14px; color: var(--muted);
+}
+.box-total strong { color: var(--black); }
+
+/* ── TIMELINE ── */
+.timeline { margin-top: 3rem; }
+.tl-weeks {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.6rem;
+}
+.tl-weeks span { padding-left: 0.25rem; border-left: 1px solid var(--rule); }
+.tl-bar {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px;
+  margin-bottom: 2rem;
+}
+.tl-seg {
+  border-radius: 4px; padding: 1rem 1.1rem; color: white;
+  min-height: 92px;
+}
+.tl-seg .n { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; opacity: 0.7; }
+.tl-seg .w { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.tl-seg .d { font-size: 12px; opacity: 0.75; }
+.tl-seg.s1 { grid-column: span 2; background: #c9ccfa; color: var(--black); }
+.tl-seg.s2 { grid-column: span 2; background: var(--blue); }
+.tl-seg.s3 { grid-column: span 2; background: var(--black); }
+.milestones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.ms { border-top: 2px solid var(--blue); padding-top: 0.9rem; }
+.ms .when { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ms h4 { font-size: 15px; font-weight: 600; margin: 0.2rem 0 0.3rem; }
+.ms p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* ── PRICE ── */
+#reserve { background: var(--black); color: white; }
+#reserve h2 { color: white; }
+#reserve h2 em { color: var(--lilac); }
+.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.price-text p { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 2rem; max-width: 46ch; }
+.anchor { display: flex; flex-direction: column; gap: 0.6rem; }
+.anchor-row {
+  display: flex; justify-content: space-between;
+  padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px; color: rgba(255,255,255,0.55);
+}
+.anchor-row b { color: rgba(255,255,255,0.85); font-weight: 600; }
+.anchor-row.ours { color: white; font-weight: 600; border-bottom: none; }
+.anchor-row.ours b { color: var(--lilac); }
+
+.price-card {
+  background: #111; border: 1px solid rgba(155,163,255,0.3);
+  border-radius: 6px; padding: 2.25rem;
+  box-shadow: 0 30px 80px -30px rgba(75,82,232,0.55);
+}
+.pc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.pc-name { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.spots {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--lilac); background: rgba(155,163,255,0.13);
+  border: 1px solid rgba(155,163,255,0.3);
+  padding: 3px 9px; border-radius: 100px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.spots::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #5be3a0; box-shadow: 0 0 0 3px rgba(91,227,160,0.2); }
+.pc-price { font-size: 56px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.pc-price small { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.45); letter-spacing: 0; }
+.pc-terms { font-size: 13px; color: rgba(255,255,255,0.45); margin: 0.6rem 0 1.5rem; }
+.pay-toggle {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+  background: rgba(255,255,255,0.06); border-radius: 100px; padding: 4px;
+  margin-bottom: 1.5rem;
+}
+.pay-toggle button {
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  border: none; border-radius: 100px; padding: 0.55rem 0.5rem;
+  background: transparent; color: rgba(255,255,255,0.55); cursor: pointer;
+}
+.pay-toggle button.on { background: white; color: var(--black); }
+.pc-items { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.75rem; }
+.pc-items li { font-size: 13.5px; color: rgba(255,255,255,0.75); padding-left: 1.4rem; position: relative; }
+.pc-items li::before { content: '✓'; position: absolute; left: 0; color: var(--lilac); font-weight: 700; }
+.btn-reserve {
+  display: block; text-align: center;
+  background: var(--blue); color: white;
+  font-size: 16px; font-weight: 700;
+  padding: 1rem; border-radius: 100px; text-decoration: none;
+  transition: opacity 0.15s;
+}
+.btn-reserve:hover { opacity: 0.88; }
+.pc-steps {
+  display: flex; justify-content: space-between; gap: 0.5rem;
+  margin-top: 1.25rem; font-size: 11.5px; color: rgba(255,255,255,0.45);
+}
+.pc-steps span b { color: rgba(255,255,255,0.8); font-weight: 600; }
+.pc-alt { text-align: center; margin-top: 1.25rem; font-size: 13px; color: rgba(255,255,255,0.45); }
+.pc-alt a { color: var(--lilac); text-decoration: none; }
+
+/* ── GUARANTEE / DEAL ── */
+.deal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+.deal-col { border: 1px solid var(--rule); border-radius: 4px; padding: 2rem; background: var(--white); }
+.deal-col.ours { border-color: rgba(75,82,232,0.35); background: linear-gradient(180deg, rgba(75,82,232,0.05), rgba(75,82,232,0)); }
+.deal-col h3 { font-size: 20px; font-weight: 700; margin-bottom: 1rem; }
+.deal-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.deal-col li { font-size: 14px; color: var(--muted); padding-left: 1.25rem; position: relative; }
+.deal-col li::before { content: '→'; position: absolute; left: 0; color: var(--muted); }
+.deal-col.ours li::before { content: '✓'; color: var(--blue); }
+.guarantee {
+  margin-top: 1.5rem;
+  display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center;
+  padding: 1.75rem 2rem; border-radius: 4px;
+  background: var(--black); color: white;
+}
+.seal {
+  width: 76px; height: 76px; border-radius: 50%;
+  border: 2px solid var(--lilac);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--lilac); line-height: 1.25;
+}
+.guarantee h4 { font-size: 18px; font-weight: 700; margin-bottom: 0.25rem; }
+.guarantee p { font-size: 14px; color: rgba(255,255,255,0.6); }
+
+/* ── AFTER ── */
+.after { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 1rem; align-items: stretch; margin-top: 2.5rem; }
+.after-card { border: 1px solid var(--rule); border-radius: 4px; padding: 1.5rem; background: var(--soft); }
+.after-card.hl { border-color: rgba(75,82,232,0.35); background: linear-gradient(180deg, rgba(75,82,232,0.07), rgba(75,82,232,0.01)); }
+.after-card .eyebrow { margin-bottom: 0.4rem; }
+.after-card h4 { font-size: 17px; font-weight: 600; margin-bottom: 0.35rem; }
+.after-card p { font-size: 13px; color: var(--muted); }
+.after-arrow { display: flex; align-items: center; color: var(--blue); font-size: 22px; font-weight: 700; }
+
+/* ── FAQ ── */
+.faq { margin-top: 2.5rem; border-top: 1px solid var(--rule); }
+.faq details { border-bottom: 1px solid var(--rule); padding: 1.25rem 0; }
+.faq summary {
+  font-size: 16px; font-weight: 600; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; gap: 1rem;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--blue); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: '–'; }
+.faq details p { font-size: 14px; color: var(--muted); margin-top: 0.6rem; max-width: 70ch; }
+
+/* ── FINAL CTA ── */
+.final { background: var(--blue); color: white; text-align: center; padding: 5rem 0; }
+.final h2 { color: white; }
+.final h2 em { color: white; opacity: 0.75; }
+.final p { color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
+.final .btn-primary { background: white; color: var(--black); }
+
+footer {
+  background: var(--black); color: rgba(255,255,255,0.4);
+  padding: 2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo { font-size: 18px; font-weight: 700; color: white; }
+.footer-logo em { font-style: italic; color: var(--blue); }
+footer p { font-size: 12px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  nav { padding: 1rem 1.5rem; }
+  .section-wrap { padding: 0 1.5rem; }
+  section { padding: 4rem 0; }
+  .hero-inner { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; gap: 2.5rem; }
+  .box-art { max-width: 420px; }
+  .contents { grid-template-columns: 1fr; }
+  .tl-weeks { display: none; }
+  .tl-bar { grid-template-columns: 1fr; }
+  .tl-seg.s1, .tl-seg.s2, .tl-seg.s3 { grid-column: auto; min-height: 0; }
+  .milestones { grid-template-columns: 1fr 1fr; }
+  .price-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .deal-grid { grid-template-columns: 1fr; }
+  .after { grid-template-columns: 1fr; }
+  .after-arrow { justify-content: center; transform: rotate(90deg); }
+  footer { padding: 2rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .nav-links { gap: 0.75rem; }
+  .nav-link { font-size: 12px; }
+  .nav-cta { padding: 0.45rem 1rem; font-size: 12px; white-space: nowrap; }
+  .nav-links li.hide-sm { display: none; }
+  .nav-logo svg { width: 26px; height: 26px; }
+  .milestones { grid-template-columns: 1fr; }
+  .guarantee { grid-template-columns: 1fr; }
+  .pc-price { font-size: 46px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+      <defs><linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a1a1a"/><stop offset="100%" stop-color="#4B52E8"/></linearGradient></defs>
+      <line x1="28" y1="172" x2="172" y2="28" stroke="#4B52E8" stroke-width="42" stroke-linecap="round"/>
+      <line x1="28" y1="28" x2="172" y2="172" stroke="#1a1a1a" stroke-width="42" stroke-linecap="round"/>
+      <polygon points="62,8 138,8 100,52" fill="url(#wg)"/>
+    </svg>
+    <span class="nav-logo-text">PM<em>x</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a class="nav-link current" href="kickstart.html">Kickstart</a></li>
+    <li class="hide-sm"><a class="nav-link" href="deliverables.html">Deliverables</a></li>
+    <li><a href="#reserve" class="nav-cta">Reserve a spot</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker"><span class="hero-kicker-dot"></span>The PMx Kickstart</div>
+      <h1>Product marketing, <em>in a box.</em></h1>
+      <p class="hero-sub">Discovery, positioning, content, and sales enablement — the whole function, shipped in six weeks for one fixed price.</p>
+      <div class="hero-facts">
+        <div><div class="fact-value">6 weeks</div><div class="fact-label">Kickoff to handoff</div></div>
+        <div><div class="fact-value">20+</div><div class="fact-label">Finished deliverables</div></div>
+        <div><div class="fact-value">$25K</div><div class="fact-label">Fixed. No surprises.</div></div>
+      </div>
+      <div class="hero-cta-row">
+        <a href="#reserve" class="btn-primary">Reserve your Kickstart →</a>
+        <a href="#box" class="btn-ghost">See what's inside ↓</a>
+      </div>
+    </div>
+
+    <div class="box-art" aria-hidden="true">
+      <svg viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bxL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b41c9"/><stop offset="1" stop-color="#2a2f9a"/></linearGradient>
+          <linearGradient id="bxR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4B52E8"/><stop offset="1" stop-color="#3a40c4"/></linearGradient>
+          <linearGradient id="glow" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#9ba3ff" stop-opacity="0.55"/><stop offset="1" stop-color="#9ba3ff" stop-opacity="0"/></linearGradient>
+        </defs>
+        <!-- light from inside -->
+        <polygon points="120,170 300,170 360,0 60,0" fill="url(#glow)"/>
+        <!-- floating cards -->
+        <g>
+          <rect x="150" y="70" width="70" height="88" rx="6" fill="#fff" transform="rotate(-10 185 114)"/>
+          <rect x="160" y="84" width="40" height="5" rx="2.5" fill="#4B52E8" transform="rotate(-10 185 114)"/>
+          <rect x="160" y="96" width="48" height="4" rx="2" fill="#d6d8f5" transform="rotate(-10 185 114)"/>
+          <rect x="160" y="106" width="44" height="4" rx="2" fill="#d6d8f5" transform="rotate(-10 185 114)"/>
+          <rect x="210" y="50" width="76" height="96" rx="6" fill="#f4f4f8" transform="rotate(8 248 98)"/>
+          <rect x="220" y="64" width="56" height="30" rx="3" fill="#1a1a1a" transform="rotate(8 248 98)"/>
+          <rect x="220" y="102" width="44" height="4" rx="2" fill="#c9ccfa" transform="rotate(8 248 98)"/>
+          <rect x="220" y="112" width="50" height="4" rx="2" fill="#c9ccfa" transform="rotate(8 248 98)"/>
+        </g>
+        <!-- open box -->
+        <polygon points="80,190 210,150 340,190 210,230" fill="#14141c"/>
+        <polygon points="80,190 210,230 210,360 80,315" fill="url(#bxL)"/>
+        <polygon points="340,190 210,230 210,360 340,315" fill="url(#bxR)"/>
+        <!-- flaps -->
+        <polygon points="80,190 210,150 160,110 30,150" fill="#5a61f0" opacity="0.9"/>
+        <polygon points="340,190 210,150 260,110 390,150" fill="#6a70f5" opacity="0.9"/>
+        <!-- logo on box -->
+        <g transform="translate(250 255) scale(0.22) skewY(-17)">
+          <line x1="28" y1="172" x2="172" y2="28" stroke="#fff" stroke-width="42" stroke-linecap="round"/>
+          <line x1="28" y1="28" x2="172" y2="172" stroke="#1a1a1a" stroke-width="42" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <span class="box-tag" style="top:4%;left:2%">ICP definition</span>
+      <span class="box-tag" style="top:14%;right:0">Battlecards ×3</span>
+      <span class="box-tag" style="top:36%;left:-4%">Messaging framework</span>
+      <span class="box-tag" style="top:30%;right:-2%">Sales training</span>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT'S IN THE BOX -->
+<section id="box">
+  <div class="section-wrap">
+    <div class="box-head">
+      <div>
+        <div class="eyebrow">What's in the box</div>
+        <h2>Everything you'd hire a <em>PMM team</em> to build.</h2>
+        <p class="lede">Every deliverable is scoped up front — exact counts, no "TBD." Pick a phase to see what lands when.</p>
+      </div>
+      <div class="phase-tabs" role="tablist">
+        <button class="tab-btn active" data-phase="all">Everything</button>
+        <button class="tab-btn" data-phase="p1">01 Diagnose</button>
+        <button class="tab-btn" data-phase="p2">02 Position</button>
+        <button class="tab-btn" data-phase="p3">03 Activate</button>
+      </div>
+    </div>
+
+    <div class="contents">
+      <div class="item p1"><div class="item-top"><span class="item-phase">Diagnose</span><span class="item-qty">8</span></div><h4>Customer &amp; stakeholder interviews</h4><p>Up to 5 internal and 8 customer conversations — run, recorded, and synthesized by us.</p></div>
+      <div class="item p1"><div class="item-top"><span class="item-phase">Diagnose</span><span class="item-qty">1</span></div><h4>ICP definition</h4><p>A precise buyer profile with firmographic, behavioral, and motivational detail.</p></div>
+      <div class="item p1"><div class="item-top"><span class="item-phase">Diagnose</span><span class="item-qty">3</span></div><h4>Competitive teardowns</h4><p>Your three closest competitors, and the positioning gaps they left open.</p></div>
+
+      <div class="item p2"><div class="item-top"><span class="item-phase">Position</span><span class="item-qty">1</span></div><h4>Positioning &amp; messaging framework</h4><p>The single source of truth every team, channel, and asset runs on.</p></div>
+      <div class="item p2"><div class="item-top"><span class="item-phase">Position</span><span class="item-qty">2</span></div><h4>Website pages, rewritten</h4><p>Your homepage plus one landing page, written on the new positioning.</p></div>
+      <div class="item p2"><div class="item-top"><span class="item-phase">Position</span><span class="item-qty">1</span></div><h4>Leadership workshop</h4><p>A working session to pressure-test the message and get sign-off.</p></div>
+
+      <div class="item p3"><div class="item-top"><span class="item-phase">Activate</span><span class="item-qty">1</span></div><h4>Pitch deck &amp; talk track</h4><p>One story every rep can tell the same way — and close with.</p></div>
+      <div class="item p3"><div class="item-top"><span class="item-phase">Activate</span><span class="item-qty">3</span></div><h4>Sales battlecards</h4><p>How to win against each named competitor, written for how reps talk.</p></div>
+      <div class="item p3"><div class="item-top"><span class="item-phase">Activate</span><span class="item-qty">5</span></div><h4>Nurture email sequence</h4><p>A five-email flow that moves buyers toward a decision.</p></div>
+      <div class="item p3"><div class="item-top"><span class="item-phase">Activate</span><span class="item-qty">13</span></div><h4>Social posts + 1 article</h4><p>A month of on-message social and one thought-leadership piece.</p></div>
+      <div class="item p3"><div class="item-top"><span class="item-phase">Activate</span><span class="item-qty">90<small style="font-size:12px">min</small></span></div><h4>Sales team training</h4><p>Live, hands-on enablement — recorded for every future hire.</p></div>
+      <div class="item p3"><div class="item-top"><span class="item-phase">Activate</span><span class="item-qty">1</span></div><h4>90-day GTM plan</h4><p>What to do next, in order, so the momentum doesn't stop at handoff.</p></div>
+    </div>
+
+    <div class="box-total">
+      <span><strong>Plus:</strong> a messaging playbook that bundles all of it for new hires, agencies, and partners.</span>
+      <span>Yours to keep. Delivered in your tools.</span>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="soft" id="timeline">
+  <div class="section-wrap">
+    <div class="eyebrow">How it runs</div>
+    <h2>Six weeks. <em>Three phases.</em> One handoff.</h2>
+    <p class="lede">Same Diagnose → Position → Activate playbook we run for every client — compressed into a fixed sprint with a hard end date.</p>
+
+    <div class="timeline">
+      <div class="tl-weeks"><span>Wk 1</span><span>Wk 2</span><span>Wk 3</span><span>Wk 4</span><span>Wk 5</span><span>Wk 6</span></div>
+      <div class="tl-bar">
+        <div class="tl-seg s1"><div class="n">01</div><div class="w">Diagnose</div><div class="d">Interviews · ICP · competitors</div></div>
+        <div class="tl-seg s2"><div class="n">02</div><div class="w">Position</div><div class="d">Framework · workshop · web copy</div></div>
+        <div class="tl-seg s3"><div class="n">03</div><div class="w">Activate</div><div class="d">Enablement · content · training</div></div>
+      </div>
+      <div class="milestones">
+        <div class="ms"><div class="when">Day 1</div><h4>Kickoff</h4><p>Intake form done, tools shared, interviews on the calendar.</p></div>
+        <div class="ms"><div class="when">End of wk 2</div><h4>Insights readout</h4><p>What buyers actually said, and where you can win.</p></div>
+        <div class="ms"><div class="when">End of wk 4</div><h4>Positioning sign-off</h4><p>Leadership approves the message everything runs on.</p></div>
+        <div class="ms"><div class="when">End of wk 6</div><h4>Handoff</h4><p>Team trained, assets live, 90-day plan in hand.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section id="reserve">
+  <div class="section-wrap">
+    <div class="price-grid">
+      <div class="price-text">
+        <div class="eyebrow" style="color:var(--lilac)">One price</div>
+        <h2>Less than a quarter of <em>one hire.</em></h2>
+        <p>No scoping calls, no SOW back-and-forth. Pick a start date, pay online, and we're interviewing your customers next week.</p>
+        <div class="anchor">
+          <div class="anchor-row"><span>Senior PMM, fully loaded</span><b>$200K+/yr</b></div>
+          <div class="anchor-row"><span>Time to hire and ramp</span><b>4–6 months</b></div>
+          <div class="anchor-row"><span>Agency positioning project</span><b>$40–80K, deck only</b></div>
+          <div class="anchor-row ours"><span>PMx Kickstart</span><b>$25K · 6 weeks · all of it</b></div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="pc-top"><span class="pc-name">The Kickstart</span><span class="spots">2 spots left · Dec</span></div>
+        <div class="pc-price" id="price">$25,000</div>
+        <div class="pc-terms" id="terms">Paid in full · save $1,000 vs. installments</div>
+        <div class="pay-toggle">
+          <button class="on" data-plan="full">Pay in full</button>
+          <button data-plan="split">2 installments</button>
+        </div>
+        <ul class="pc-items">
+          <li>20+ deliverables across Diagnose, Position, Activate</li>
+          <li>Dedicated strategist + execution team</li>
+          <li>Weekly check-ins and a shared project board</li>
+          <li>2 revision rounds on every deliverable</li>
+          <li>Positioning sign-off guarantee</li>
+        </ul>
+        <a href="#" class="btn-reserve" onclick="alert('Mockup: this would open a Stripe checkout.');return false;">Reserve my spot →</a>
+        <div class="pc-steps">
+          <span><b>1</b> Pay securely</span>
+          <span><b>2</b> Pick kickoff date</span>
+          <span><b>3</b> 10-min intake</span>
+        </div>
+        <p class="pc-alt">Want to talk first? <a href="index.html#contact">Book a 20-min fit call</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE DEAL -->
+<section>
+  <div class="section-wrap">
+    <div class="eyebrow">The deal</div>
+    <h2>What we do. <em>What we need.</em></h2>
+    <p class="lede">Six weeks only works if both sides show up. Here's the whole agreement — no fine print.</p>
+    <div class="deal-grid">
+      <div class="deal-col ours">
+        <h3>We bring</h3>
+        <ul>
+          <li>Every deliverable in the box, on schedule</li>
+          <li>All interview scheduling, running, and synthesis</li>
+          <li>A weekly update so you always know where things stand</li>
+          <li>Assets delivered in your tools (Google, Notion, Figma, HubSpot)</li>
+        </ul>
+      </div>
+      <div class="deal-col">
+        <h3>You bring</h3>
+        <ul>
+          <li>One internal owner with decision rights</li>
+          <li>Intros to 5–8 customers for interviews</li>
+          <li>Feedback within 48 hours</li>
+          <li>Access to your site, CRM, and sales materials</li>
+        </ul>
+      </div>
+    </div>
+    <div class="guarantee">
+      <div class="seal">Sign-off<br>guarantee</div>
+      <div>
+        <h4>Not happy with the positioning by week 4? We keep going — free.</h4>
+        <p>We don't move to Activate until leadership signs off. If it takes longer, that's on us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AFTER THE BOX -->
+<section class="soft">
+  <div class="section-wrap">
+    <div class="eyebrow">After the box</div>
+    <h2>Six weeks to start. <em>Stay as long as you like.</em></h2>
+    <p class="lede">Most teams keep going. The research and messaging from your Kickstart become the foundation for everything after.</p>
+    <div class="after">
+      <div class="after-card"><div class="eyebrow">Weeks 1–6</div><h4>Kickstart</h4><p>Foundation built, team trained, assets live.</p></div>
+      <div class="after-arrow">→</div>
+      <div class="after-card hl"><div class="eyebrow">Optional</div><h4>Keep the team</h4><p>Roll into a monthly retainer for demand gen, content, and launches. Part of your Kickstart fee credits toward month one.</p></div>
+      <div class="after-arrow">→</div>
+      <div class="after-card"><div class="eyebrow">Or</div><h4>Run it yourself</h4><p>Take the playbook in-house. Everything is yours to keep.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="section-wrap">
+    <h2>Questions, <em>answered.</em></h2>
+    <div class="faq">
+      <details open><summary>Who is the Kickstart for?</summary><p>B2B SaaS teams without a product marketer — or with one who's underwater — who need positioning and a pipeline-ready message fast. Typically Seed to Series C.</p></details>
+      <details><summary>What if we need something that's not in the box?</summary><p>Add-ons are priced up front: extra battlecards, extra landing pages, a demand-gen launch, or a win/loss program. Or roll into a retainer after week 6.</p></details>
+      <details><summary>Can we start right away?</summary><p>We take a limited number of Kickstarts each month so every one gets a senior team. Reserve a spot and pick any open kickoff date.</p></details>
+      <details><summary>What does "fixed price" actually cover?</summary><p>Everything listed in the box, two revision rounds on each deliverable, and all of our time. The only extras are add-ons you choose.</p></details>
+      <details><summary>Is it refundable?</summary><p>Your deposit holds your start date. If we don't hit sign-off on positioning by week 4, we keep working at no extra cost until we do.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final">
+  <div class="section-wrap">
+    <h2>From positioning to pipeline, <em>in six weeks.</em></h2>
+    <p>Two Kickstarts open for December.</p>
+    <a href="#reserve" class="btn-primary">Reserve your Kickstart →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">PM<em>x</em></span>
+  <p>© 2026 PMx — productmarketing.team</p>
+</footer>
+
+<script>
+// Phase filter for "What's in the box"
+document.querySelectorAll('.phase-tabs .tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.phase-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const phase = btn.dataset.phase;
+    document.querySelectorAll('.item').forEach(item => {
+      const match = phase === 'all' || item.classList.contains(phase);
+      item.classList.toggle('dim', !match);
+      item.classList.toggle('lit', match && phase !== 'all');
+    });
+  });
+});
+
+// Payment toggle
+const plans = {
+  full:  { price: '$25,000', terms: 'Paid in full · save $1,000 vs. installments' },
+  split: { price: '$13,000<small> ×2</small>', terms: 'Half at kickoff, half at positioning sign-off' }
+};
+document.querySelectorAll('.pay-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pay-toggle button').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('price').innerHTML = plans[btn.dataset.plan].price;
+    document.getElementById('terms').textContent = plans[btn.dataset.plan].terms;
+  });
+});
+</script>
+</body>
+</html>
